@@ -41,6 +41,18 @@ input {
     linear-gradient(135deg, #fffaf0 0%, #fff7e8 58%, rgba(140, 207, 0, 0.18) 100%);
 }
 
+.pageHero {
+  background:
+    radial-gradient(circle at 14% 26%, rgba(255, 105, 0, 0.14), transparent 30%),
+    linear-gradient(135deg, #fffaf0 0%, #fff7e8 64%, rgba(140, 207, 0, 0.2) 100%);
+  padding: 20px clamp(18px, 4vw, 64px) 82px;
+}
+
+.pageHero > div {
+  margin: 58px auto 0;
+  max-width: 1160px;
+}
+
 .nav {
   align-items: center;
   display: flex;
@@ -110,6 +122,14 @@ h2 {
   line-height: 1.35;
   margin: 28px 0 0;
   max-width: 660px;
+}
+
+.textLink {
+  color: var(--orange);
+  display: inline-flex;
+  font-size: 1.1rem;
+  font-weight: 900;
+  margin-top: 24px;
 }
 
 .actions {
@@ -306,7 +326,8 @@ h2 {
   padding: 22px;
 }
 
-.waitlist label {
+.waitlist label,
+.leadForm label {
   display: block;
   font-weight: 900;
   margin-bottom: 10px;
@@ -317,7 +338,8 @@ h2 {
   gap: 10px;
 }
 
-.waitlist input {
+.waitlist input,
+.leadForm input {
   border: 2px solid rgba(36, 0, 61, 0.14);
   border-radius: 999px;
   color: var(--purple);
@@ -325,6 +347,75 @@ h2 {
   min-width: 0;
   padding: 0 18px;
   width: 100%;
+}
+
+.cityGrid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.city {
+  background: var(--white);
+  border: 2px solid rgba(140, 207, 0, 0.36);
+  border-radius: 22px;
+  display: grid;
+  gap: 8px;
+  padding: 22px;
+}
+
+.city span {
+  color: var(--purple);
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.city strong {
+  color: var(--green);
+  font-size: 1rem;
+}
+
+.leadForm {
+  background: var(--white);
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 10px;
+  padding: 24px;
+}
+
+.leadForm button {
+  background: var(--orange);
+  border: 0;
+  border-radius: 999px;
+  color: var(--white);
+  cursor: pointer;
+  font-weight: 900;
+  min-height: 52px;
+  padding: 0 20px;
+}
+
+.faqList {
+  display: grid;
+  gap: 18px;
+}
+
+.faqItem {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 26px;
+}
+
+.faqItem h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin-bottom: 10px;
+}
+
+.faqItem p {
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+  line-height: 1.45;
+  margin: 0;
 }
 
 @media (max-width: 820px) {
@@ -342,7 +433,8 @@ h2 {
   .heroGrid,
   .steps,
   .split,
-  .waitlist {
+  .waitlist,
+  .cityGrid {
     grid-template-columns: 1fr;
   }
 

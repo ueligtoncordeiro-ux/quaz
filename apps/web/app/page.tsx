@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { brandColors } from "@quaz/config";
+import { SiteHeader } from "./components/SiteHeader";
 
 const steps = [
   {
@@ -26,21 +26,7 @@ export default function Home() {
   return (
     <main>
       <section className="hero" aria-labelledby="hero-title">
-        <header className="nav">
-          <Image
-            src="/logo-quaz.png"
-            alt="Quaz di Graca"
-            width={168}
-            height={112}
-            priority
-            className="navLogo"
-          />
-          <nav aria-label="Navegacao principal">
-            <a href="#como-funciona">Como funciona</a>
-            <a href="#parceiros">Parceiros</a>
-            <a href="#impacto">Impacto</a>
-          </nav>
-        </header>
+        <SiteHeader />
 
         <div className="heroGrid">
           <div className="heroCopy">
@@ -54,7 +40,7 @@ export default function Home() {
               <a className="button primary" href="#lista-espera">
                 Entrar na lista
               </a>
-              <a className="button secondary" href="#parceiros">
+              <a className="button secondary" href="/seja-parceiro">
                 Quero ser parceiro
               </a>
             </div>
@@ -98,6 +84,9 @@ export default function Home() {
             </article>
           ))}
         </div>
+        <a className="textLink" href="/como-funciona">
+          Ver detalhes do processo
+        </a>
       </section>
 
       <section className="split" id="parceiros">
