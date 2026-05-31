@@ -1,0 +1,16 @@
+{
+  "name": "quaz-di-graca",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Marketplace antidesperdicio Quaz di Graca.",
+  "scripts": {
+    "dev": "echo \"Apps ainda nao foram scaffoldados.\"",
+    "build": "echo \"Apps ainda nao foram scaffoldados.\"",
+    "lint": "echo \"Lint sera configurado junto ao primeiro app.\"",
+    "typecheck": "echo \"Typecheck sera configurado junto ao primeiro app.\""
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
