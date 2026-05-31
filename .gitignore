@@ -5,6 +5,7 @@ build/
 coverage/
 .turbo/
 .vercel/
+*.tsbuildinfo
 .env
 .env.*
 !.env.example
