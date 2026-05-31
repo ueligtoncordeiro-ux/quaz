@@ -10,7 +10,7 @@ export default function OndeEstamosPage() {
           <p className="eyebrow">onde estamos</p>
           <h1>Primeiras cidades em preparacao para o piloto.</h1>
           <p className="lead">
-            Estamos organizando a operacao inicial por cidade, priorizando locais
+            Estamos organizando a operação inicial por cidade, priorizando locais
             com parceiros interessados e demanda de consumidores.
           </p>
         </div>

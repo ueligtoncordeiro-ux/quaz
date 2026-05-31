@@ -9,7 +9,7 @@ export default function TermosPage() {
           <p className="eyebrow">termos de uso</p>
           <h1>Termos em elaboracao.</h1>
           <p className="lead">
-            Esta pagina sera substituida pelo documento juridico final antes do
+            Esta página será substituída pelo documento jurídico final antes do
             piloto transacional.
           </p>
         </div>

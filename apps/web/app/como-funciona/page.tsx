@@ -8,10 +8,10 @@ export default function ComoFuncionaPage() {
         <SiteHeader />
         <div>
           <p className="eyebrow">como funciona</p>
-          <h1>Ache, resgate e aproveite comida boa por preco quaz.</h1>
+          <h1>Ache, resgate e aproveite comida boa por preço quáz.</h1>
           <p className="lead">
-            A Quaz di Graca conecta consumidores a estabelecimentos com excedentes
-            e ofertas de ultima hora, com retirada combinada e impacto positivo.
+            A Quáz di Graça conecta consumidores a estabelecimentos com excedentes
+            e ofertas de última hora, com retirada combinada e impacto positivo.
           </p>
         </div>
       </section>

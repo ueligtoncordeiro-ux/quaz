@@ -5,22 +5,22 @@ import { SiteHeader } from "./components/SiteHeader";
 const steps = [
   {
     title: "Ache",
-    text: "Encontre Achados Quaz perto de voce, com retirada no horario combinado."
+    text: "Encontre Achados Quáz perto de você, com retirada no horário combinado."
   },
   {
     title: "Resgate",
-    text: "Reserve e pague pelo app com uma experiencia simples, segura e transparente."
+    text: "Reserve e pague pelo app com uma experiência simples, segura e transparente."
   },
   {
     title: "Aproveite",
-    text: "Retire comida boa pagando menos e ajudando a reduzir desperdicio local."
+    text: "Retire comida boa pagando menos e ajudando a reduzir desperdício local."
   }
 ];
 
 const benefits = [
-  "Bom pro bolso: precos incriveis todos os dias.",
-  "Bom pro planeta: menos desperdicio, mais futuro.",
-  "Bom pra todos: comercios locais vendem mais e perdem menos."
+  "Bom pro bolso: preços incríveis todos os dias.",
+  "Bom pro planeta: menos desperdício, mais futuro.",
+  "Bom pra todos: comércios locais vendem mais e perdem menos."
 ];
 
 export default function Home() {
@@ -32,10 +32,10 @@ export default function Home() {
         <div className="heroGrid">
           <div className="heroCopy">
             <p className="eyebrow">ache. resgate. aproveite.</p>
-            <h1 id="hero-title">Comida boa, preco quaz, desperdicio nao.</h1>
+            <h1 id="hero-title">Comida boa, preço quáz, desperdício não.</h1>
             <p className="lead">
-              A Quaz di Graca conecta voce a restaurantes, padarias e mercados
-              com Achados Quaz por precos muito reduzidos.
+              A Quáz di Graça conecta você a restaurantes, padarias e mercados
+              com Achados Quáz por preços muito reduzidos.
             </p>
             <div className="actions">
               <a className="button primary" href="#lista-espera">
@@ -50,14 +50,14 @@ export default function Home() {
           <div className="heroCard" aria-label="Previa do aplicativo">
             <div className="phone">
               <div className="phoneTop">
-                <span>Proximos de voce</span>
-                <strong>Sao Paulo, SP</strong>
+                <span>Próximos de você</span>
+                <strong>São Paulo, SP</strong>
               </div>
               <div className="offer">
                 <div>
-                  <span className="tag">Achado Quaz</span>
+                  <span className="tag">Achado Quáz</span>
                   <h2>Padaria da Vila</h2>
-                  <p>Combo surpresa de paes e doces</p>
+                  <p>Combo surpresa de pães e doces</p>
                 </div>
                 <strong>R$ 9,90</strong>
               </div>
@@ -76,7 +76,7 @@ export default function Home() {
 
       <section className="section" id="como-funciona">
         <p className="eyebrow">Como funciona</p>
-        <h2>Tres passos para salvar comida boa.</h2>
+        <h2>Três passos para salvar comida boa.</h2>
         <div className="steps">
           {steps.map((step) => (
             <article className="step" key={step.title}>
@@ -95,7 +95,7 @@ export default function Home() {
           <p className="eyebrow">Para estabelecimentos</p>
           <h2>Venda o excedente antes que ele vire perda.</h2>
           <p>
-            Parceiros publicam Achados Quaz, definem quantidade, preco e horario
+            Parceiros publicam Achados Quáz, definem quantidade, preço e horário
             de retirada. A plataforma cuida da descoberta, pedido e suporte.
           </p>
         </div>
@@ -108,18 +108,18 @@ export default function Home() {
 
       <section className="impact" id="impacto">
         <p className="eyebrow">Impacto positivo</p>
-        <h2>Economia para pessoas, receita para comercios e menos desperdicio.</h2>
+        <h2>Economia para pessoas, receita para comércios e menos desperdício.</h2>
         <div className="metrics">
-          <span style={{ backgroundColor: brandColors.orange }}>preco quaz</span>
+          <span style={{ backgroundColor: brandColors.orange }}>preço quáz</span>
           <span style={{ backgroundColor: brandColors.green }}>menos perda</span>
-          <span style={{ backgroundColor: brandColors.purple }}>mais conexao</span>
+          <span style={{ backgroundColor: brandColors.purple }}>mais conexão</span>
         </div>
       </section>
 
       <section className="waitlist" id="lista-espera">
         <div>
           <p className="eyebrow">Piloto em breve</p>
-          <h2>Entre na lista para acompanhar o lancamento.</h2>
+          <h2>Entre na lista para acompanhar o lançamento.</h2>
         </div>
         <LeadForm kind="consumer" />
       </section>

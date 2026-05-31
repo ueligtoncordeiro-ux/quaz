@@ -7,10 +7,10 @@ export default function PrivacidadePage() {
         <SiteHeader />
         <div>
           <p className="eyebrow">privacidade</p>
-          <h1>Politica de privacidade em elaboracao.</h1>
+          <h1>Política de privacidade em elaboração.</h1>
           <p className="lead">
-            Esta pagina vai detalhar dados coletados, finalidade, seguranca e
-            direitos dos usuarios antes do lancamento.
+            Esta página vai detalhar dados coletados, finalidade, segurança e
+            direitos dos usuários antes do lançamento.
           </p>
         </div>
       </section>

@@ -13,10 +13,10 @@ export function SiteFooter() {
   return (
     <footer className="footer">
       <div>
-        <strong>Quaz di Graca</strong>
-        <p>comida boa, preco quaz, desperdicio nao.</p>
+        <strong>Quáz di Graça</strong>
+        <p>comida boa, preço quáz, desperdício não.</p>
       </div>
-      <nav aria-label="Links de rodape">
+      <nav aria-label="Links de rodapé">
         {links.map((link) => (
           <Link href={link.href} key={link.href}>
             {link.label}

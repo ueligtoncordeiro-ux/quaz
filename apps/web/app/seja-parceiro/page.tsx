@@ -9,21 +9,21 @@ export default function SejaParceiroPage() {
         <SiteHeader />
         <div>
           <p className="eyebrow">seja parceiro</p>
-          <h1>Venda mais do que ja estava pronto.</h1>
+          <h1>Venda mais do que já estava pronto.</h1>
           <p className="lead">
-            Publique Achados Quaz, reduza perdas e alcance consumidores que querem
-            economizar sem abrir mao de comida boa.
+            Publique Achados Quáz, reduza perdas e alcance consumidores que querem
+            economizar sem abrir mão de comida boa.
           </p>
         </div>
       </section>
 
       <section className="split">
         <div>
-          <p className="eyebrow">operacao simples</p>
+          <p className="eyebrow">operação simples</p>
           <h2>Seu excedente vira oportunidade.</h2>
           <p>
-            No MVP, o cadastro de parceiros sera revisado manualmente para manter
-            qualidade, suporte proximo e regras claras de retirada.
+            No MVP, o cadastro de parceiros será revisado manualmente para manter
+            qualidade, suporte próximo e regras claras de retirada.
           </p>
         </div>
         <LeadForm kind="partner" />

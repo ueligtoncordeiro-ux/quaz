@@ -35,7 +35,7 @@ export function LeadForm({ kind }: LeadFormProps) {
         <button type="submit">Entrar na lista de parceiros</button>
         {status === "success" ? (
           <p className="formMessage" role="status">
-            Recebido. Na proxima etapa vamos conectar este formulario ao banco.
+            Recebido. Na próxima etapa vamos conectar este formulário ao banco.
           </p>
         ) : null}
       </form>
@@ -50,14 +50,14 @@ export function LeadForm({ kind }: LeadFormProps) {
           id="email"
           name="email"
           type="email"
-          placeholder="voce@email.com"
+          placeholder="seu@email.com"
           required
         />
         <button type="submit">Quero saber</button>
       </div>
       {status === "success" ? (
         <p className="formMessage" role="status">
-          Pronto. Seu interesse foi registrado nesta experiencia local.
+          Pronto. Seu interesse foi registrado nesta experiência local.
         </p>
       ) : null}
     </form>

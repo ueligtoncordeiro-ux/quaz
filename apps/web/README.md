@@ -1,6 +1,6 @@
 # @quaz/web
 
-Site institucional da Quaz di Graca.
+Site institucional da Quáz di Graça.
 
 Escopo inicial:
 

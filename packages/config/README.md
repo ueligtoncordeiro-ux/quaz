@@ -1,6 +1,6 @@
 # packages/config
 
-Configuracoes compartilhadas entre apps e pacotes.
+Configurações compartilhadas entre apps e pacotes.
 
 Exemplos futuros:
 

@@ -3,8 +3,8 @@ import { SiteFooter } from "./components/SiteFooter";
 import "./styles.css";
 
 export const metadata: Metadata = {
-  title: "Quaz di Graca",
-  description: "Comida boa, preco quaz, desperdicio nao.",
+  title: "Quáz di Graça",
+  description: "Comida boa, preço quáz, desperdício não.",
   icons: {
     icon: "/logo-quaz.png"
   }

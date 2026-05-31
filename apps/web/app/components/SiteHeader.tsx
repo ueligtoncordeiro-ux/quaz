@@ -11,17 +11,17 @@ const navItems = [
 export function SiteHeader() {
   return (
     <header className="nav">
-      <Link href="/" aria-label="Pagina inicial Quaz di Graca">
+      <Link href="/" aria-label="Página inicial Quáz di Graça">
         <Image
           src="/logo-quaz.png"
-          alt="Quaz di Graca"
+          alt="Quáz di Graça"
           width={168}
           height={112}
           priority
           className="navLogo"
         />
       </Link>
-      <nav aria-label="Navegacao principal">
+      <nav aria-label="Navegação principal">
         {navItems.map((item) => (
           <Link href={item.href} key={item.href}>
             {item.label}

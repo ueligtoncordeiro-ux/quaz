@@ -10,5 +10,5 @@ export const brand = {
   displayName: "Quáz di Graça",
   slogan: "comida boa, preco quaz, desperdicio nao.",
   polishedSlogan: "comida boa, preço quáz, desperdício não.",
-  offerName: "Achado Quaz"
+  offerName: "Achado Quáz"
 } as const;

@@ -1,54 +1,54 @@
 export const consumerSteps = [
   {
     title: "Ache",
-    text: "Escolha sua cidade, veja estabelecimentos proximos e encontre Achados Quaz disponiveis para hoje."
+    text: "Escolha sua cidade, veja estabelecimentos próximos e encontre Achados Quáz disponíveis para hoje."
   },
   {
     title: "Resgate",
-    text: "Reserve com pagamento pelo app ou web app e receba um codigo de retirada."
+    text: "Reserve com pagamento pelo app ou web app e receba um código de retirada."
   },
   {
     title: "Aproveite",
-    text: "Retire no horario combinado, economize e ajude a reduzir perdas de alimentos."
+    text: "Retire no horário combinado, economize e ajude a reduzir perdas de alimentos."
   }
 ];
 
 export const partnerSteps = [
   {
     title: "Cadastre sua loja",
-    text: "Informe dados do estabelecimento, endereco, horarios e contatos operacionais."
+    text: "Informe dados do estabelecimento, endereço, horários e contatos operacionais."
   },
   {
     title: "Publique achados",
-    text: "Defina categoria, quantidade, preco, janela de retirada e regras de cada Achado Quaz."
+    text: "Defina categoria, quantidade, preço, janela de retirada e regras de cada Achado Quáz."
   },
   {
     title: "Venda antes de perder",
-    text: "Receba pedidos pagos, valide o codigo de retirada e acompanhe vendas e avaliacoes."
+    text: "Receba pedidos pagos, valide o código de retirada e acompanhe vendas e avaliações."
   }
 ];
 
 export const pilotCities = [
   "Cuiaba",
   "Varzea Grande",
-  "Sao Paulo",
+  "São Paulo",
   "Campinas"
 ];
 
 export const faqs = [
   {
-    question: "O que e um Achado Quaz?",
+    question: "O que é um Achado Quáz?",
     answer:
-      "E uma oferta com preco reduzido criada por um estabelecimento parceiro. Os itens podem variar conforme disponibilidade."
+      "É uma oferta com preço reduzido criada por um estabelecimento parceiro. Os itens podem variar conforme disponibilidade."
   },
   {
-    question: "A plataforma ja esta vendendo?",
+    question: "A plataforma já está vendendo?",
     answer:
-      "Ainda estamos preparando o piloto. A lista de espera servira para avisar consumidores e parceiros nas primeiras cidades."
+      "Ainda estamos preparando o piloto. A lista de espera servirá para avisar consumidores e parceiros nas primeiras cidades."
   },
   {
     question: "Como um parceiro recebe os pedidos?",
     answer:
-      "No painel parceiro, a loja acompanha pedidos pagos, horarios de retirada e validacao por codigo."
+      "No painel parceiro, a loja acompanha pedidos pagos, horários de retirada e validação por código."
   }
 ];
