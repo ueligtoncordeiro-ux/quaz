@@ -1,4 +1,5 @@
 import { brandColors } from "@quaz/config";
+import { LeadForm } from "./components/LeadForm";
 import { SiteHeader } from "./components/SiteHeader";
 
 const steps = [
@@ -120,13 +121,7 @@ export default function Home() {
           <p className="eyebrow">Piloto em breve</p>
           <h2>Entre na lista para acompanhar o lancamento.</h2>
         </div>
-        <form>
-          <label htmlFor="email">E-mail</label>
-          <div>
-            <input id="email" name="email" type="email" placeholder="voce@email.com" />
-            <button type="submit">Quero saber</button>
-          </div>
-        </form>
+        <LeadForm kind="consumer" />
       </section>
     </main>
   );

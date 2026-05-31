@@ -23,6 +23,10 @@ body {
   font-family: "Baloo 2", ui-rounded, "Trebuchet MS", Arial, sans-serif;
 }
 
+body > footer {
+  margin-top: 40px;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -319,7 +323,7 @@ h2 {
   padding-top: 20px;
 }
 
-.waitlist form {
+.leadForm {
   background: var(--white);
   border-radius: 26px;
   box-shadow: var(--shadow);
@@ -333,7 +337,7 @@ h2 {
   margin-bottom: 10px;
 }
 
-.waitlist form div {
+.leadForm.compact div {
   display: flex;
   gap: 10px;
 }
@@ -376,12 +380,8 @@ h2 {
 }
 
 .leadForm {
-  background: var(--white);
-  border-radius: 26px;
-  box-shadow: var(--shadow);
   display: grid;
   gap: 10px;
-  padding: 24px;
 }
 
 .leadForm button {
@@ -393,6 +393,45 @@ h2 {
   font-weight: 900;
   min-height: 52px;
   padding: 0 20px;
+}
+
+.formMessage {
+  color: var(--green);
+  font-size: 0.98rem;
+  font-weight: 900;
+  line-height: 1.35;
+  margin: 4px 0 0;
+}
+
+.footer {
+  align-items: center;
+  background: var(--purple);
+  color: var(--white);
+  display: flex;
+  gap: 26px;
+  justify-content: space-between;
+  padding: 34px clamp(18px, 4vw, 64px);
+}
+
+.footer strong {
+  color: var(--orange);
+  display: block;
+  font-size: 1.45rem;
+}
+
+.footer p {
+  margin: 4px 0 0;
+}
+
+.footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: flex-end;
+}
+
+.footer a {
+  font-weight: 900;
 }
 
 .faqList {
@@ -446,8 +485,17 @@ h2 {
     justify-content: flex-start;
   }
 
-  .waitlist form div {
+  .leadForm.compact div {
     flex-direction: column;
+  }
+
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer nav {
+    justify-content: flex-start;
   }
 }
 

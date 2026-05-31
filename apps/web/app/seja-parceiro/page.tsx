@@ -1,3 +1,4 @@
+import { LeadForm } from "../components/LeadForm";
 import { SiteHeader } from "../components/SiteHeader";
 import { partnerSteps } from "../data/site";
 
@@ -25,13 +26,7 @@ export default function SejaParceiroPage() {
             qualidade, suporte proximo e regras claras de retirada.
           </p>
         </div>
-        <form className="leadForm">
-          <label htmlFor="business">Nome do estabelecimento</label>
-          <input id="business" name="business" placeholder="Padaria, mercado ou restaurante" />
-          <label htmlFor="contact">Contato</label>
-          <input id="contact" name="contact" placeholder="WhatsApp ou e-mail" />
-          <button type="submit">Entrar na lista de parceiros</button>
-        </form>
+        <LeadForm kind="partner" />
       </section>
 
       <section className="section">
