@@ -8,6 +8,8 @@ Marca:
 - Nome em materiais finais: Quáz di Graça.
 - Slogan: comida boa, preco quaz, desperdicio nao.
 - Oferta padrao: Achado Quaz.
+- Dominio principal: quazdigraca.com.br.
+- Dominio secundario: quazdigraca.com, redirecionado para o dominio principal.
 
 Estrategia:
 
@@ -28,11 +30,6 @@ Tecnologia:
 - React Native + Expo no futuro.
 
 ## A Confirmar
-
-Dominio principal:
-
-- `quazdegraca.com.br`
-- `quazedegraca.com.br`
 
 Gateway final:
 
@@ -70,4 +67,3 @@ Regras comerciais:
 - regras claras de retirada.
 - suporte simples e rastreavel.
 - metricas de cancelamento e avaliacao por loja.
-
