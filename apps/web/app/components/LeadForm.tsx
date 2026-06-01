@@ -32,13 +32,21 @@ export function LeadForm({ kind }: LeadFormProps) {
             contact: String(formData.get("contact") ?? "")
           };
 
-    const response = await fetch("/api/leads", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
+    let response: Response;
+
+    try {
+      response = await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch {
+      setStatus("error");
+      setMessage("Não foi possível conectar agora. Tente novamente em instantes.");
+      return;
+    }
 
     const result = (await response.json().catch(() => null)) as {
       message?: string;
@@ -76,7 +84,7 @@ export function LeadForm({ kind }: LeadFormProps) {
           {status === "submitting" ? "Enviando..." : "Entrar na lista de parceiros"}
         </button>
         {status === "success" || status === "error" ? (
-          <p className={`formMessage ${status}`} role="status">
+          <p className={`formMessage ${status}`} aria-live="polite" role="status">
             {message}
           </p>
         ) : null}
@@ -100,7 +108,7 @@ export function LeadForm({ kind }: LeadFormProps) {
         </button>
       </div>
       {status === "success" || status === "error" ? (
-        <p className={`formMessage ${status}`} role="status">
+        <p className={`formMessage ${status}`} aria-live="polite" role="status">
           {message}
         </p>
       ) : null}

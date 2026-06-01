@@ -43,6 +43,8 @@ Ordem recomendada:
 6. Adicionar `quazdigraca.com` e `www.quazdigraca.com` redirecionando para o dominio principal.
 7. Configurar DNS no provedor/Cloudflare conforme instrucoes da Vercel.
 
+Detalhes especificos para os dominios no Hostinger estao em `docs/dominios-hostinger.md`.
+
 ## Vercel
 
 Projeto:
@@ -109,4 +111,3 @@ sitemap.xml
 robots.txt
 favicon.png
 ```
-
