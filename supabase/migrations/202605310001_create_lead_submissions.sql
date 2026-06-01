@@ -1,6 +1,16 @@
-create type public.lead_kind as enum ('consumer', 'partner');
+-- idempotent: cria o enum apenas se ainda nao existir
+do $$
+begin
+  if not exists (
+    select 1 from pg_type
+    where typname = 'lead_kind'
+      and typnamespace = 'public'::regnamespace
+  ) then
+    create type public.lead_kind as enum ('consumer', 'partner');
+  end if;
+end $$;
 
-create table public.lead_submissions (
+create table if not exists public.lead_submissions (
   id uuid primary key default gen_random_uuid(),
   kind public.lead_kind not null,
   email text,
@@ -19,12 +29,23 @@ create table public.lead_submissions (
 
 alter table public.lead_submissions enable row level security;
 
-create policy "Service role can manage lead submissions"
-  on public.lead_submissions
-  for all
-  using (auth.role() = 'service_role')
-  with check (auth.role() = 'service_role');
+do $$
+begin
+  if not exists (
+    select 1 from pg_policies
+    where schemaname = 'public'
+      and tablename  = 'lead_submissions'
+      and policyname = 'Service role can manage lead submissions'
+  ) then
+    execute $policy$
+      create policy "Service role can manage lead submissions"
+        on public.lead_submissions
+        for all
+        using (auth.role() = 'service_role')
+        with check (auth.role() = 'service_role')
+    $policy$;
+  end if;
+end $$;
 
-create index lead_submissions_kind_created_at_idx
+create index if not exists lead_submissions_kind_created_at_idx
   on public.lead_submissions (kind, created_at desc);
-
