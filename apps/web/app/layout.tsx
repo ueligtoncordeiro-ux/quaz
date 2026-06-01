@@ -6,7 +6,8 @@ export const metadata: Metadata = {
   title: "Quáz di Graça",
   description: "Comida boa, preço quáz, desperdício não.",
   icons: {
-    icon: "/logo-quaz.png"
+    icon: "/favicon.png",
+    apple: "/favicon.png"
   }
 };
 
