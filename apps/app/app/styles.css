@@ -1,0 +1,288 @@
+:root {
+  --orange: #ff6900;
+  --green: #8ccf00;
+  --purple: #24003d;
+  --cream: #fff7e8;
+  --white: #ffffff;
+  --muted: rgba(36, 0, 61, 0.68);
+  --line: rgba(36, 0, 61, 0.1);
+  --shadow: 0 18px 54px rgba(36, 0, 61, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--cream);
+}
+
+body {
+  margin: 0;
+  color: var(--purple);
+  font-family: "Baloo 2", ui-rounded, "Trebuchet MS", Arial, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+.appShell {
+  margin: 0 auto;
+  max-width: 520px;
+  min-height: 100vh;
+  padding: 18px 16px 96px;
+}
+
+.topbar,
+.contentHeader,
+.priceRow,
+.bottomNav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  height: auto;
+  object-fit: contain;
+  width: 108px;
+}
+
+.profileButton {
+  background: var(--purple);
+  border-radius: 999px;
+  color: var(--white);
+  display: grid;
+  font-weight: 900;
+  height: 44px;
+  place-items: center;
+  width: 44px;
+}
+
+.locationPanel {
+  background: linear-gradient(135deg, var(--white), #fff1df 62%, rgba(140, 207, 0, 0.2));
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  margin-top: 16px;
+  padding: 22px;
+}
+
+.eyebrow {
+  color: var(--green);
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  margin-bottom: 6px;
+  text-transform: lowercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  color: var(--orange);
+  font-size: 2.6rem;
+  line-height: 0.98;
+}
+
+h2 {
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.05;
+  margin-top: 5px;
+}
+
+p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.35;
+  margin-top: 12px;
+}
+
+.searchBox {
+  align-items: center;
+  background: var(--white);
+  border: 2px solid rgba(36, 0, 61, 0.1);
+  border-radius: 999px;
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  min-height: 52px;
+  padding: 0 16px;
+}
+
+.searchBox span {
+  color: var(--orange);
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.searchBox input {
+  background: transparent;
+  border: 0;
+  color: var(--purple);
+  min-width: 0;
+  outline: 0;
+  width: 100%;
+}
+
+.categoryRail {
+  display: flex;
+  gap: 10px;
+  margin: 20px -16px 0;
+  overflow-x: auto;
+  padding: 0 16px 4px;
+}
+
+.categoryRail button,
+.contentHeader button {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--purple);
+  flex: 0 0 auto;
+  font-weight: 900;
+  min-height: 42px;
+  padding: 0 16px;
+}
+
+.categoryRail .active {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: var(--white);
+}
+
+.contentHeader {
+  margin-top: 24px;
+}
+
+.offerList {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.offerCard {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 10px 34px rgba(36, 0, 61, 0.08);
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 92px minmax(0, 1fr);
+  padding: 12px;
+}
+
+.offerMedia {
+  align-content: center;
+  background: #fff1df;
+  border-radius: 16px;
+  color: var(--orange);
+  display: grid;
+  min-height: 112px;
+  place-items: center;
+}
+
+.offerCard[data-tone="green"] .offerMedia {
+  background: #f2ffd7;
+  color: #4f9500;
+}
+
+.offerCard[data-tone="purple"] .offerMedia {
+  background: #f0e7f7;
+  color: var(--purple);
+}
+
+.offerMedia span {
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.offerMedia small,
+.storeLine,
+.priceRow span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.offerBody {
+  display: grid;
+  gap: 16px;
+}
+
+.offerBody p {
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+.priceRow span {
+  text-decoration: line-through;
+}
+
+.priceRow strong {
+  color: var(--orange);
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.bottomNav {
+  background: var(--purple);
+  border-radius: 22px 22px 0 0;
+  bottom: 0;
+  box-shadow: 0 -14px 40px rgba(36, 0, 61, 0.18);
+  gap: 4px;
+  left: 50%;
+  max-width: 520px;
+  padding: 12px 14px 18px;
+  position: fixed;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+.bottomNav a {
+  color: var(--white);
+  flex: 1;
+  font-size: 0.92rem;
+  font-weight: 900;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (min-width: 860px) {
+  .appShell {
+    max-width: 980px;
+    padding-bottom: 24px;
+  }
+
+  .offerList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .offerCard {
+    grid-template-columns: 1fr;
+  }
+
+  .bottomNav {
+    border-radius: 999px;
+    bottom: 20px;
+    max-width: 420px;
+  }
+}

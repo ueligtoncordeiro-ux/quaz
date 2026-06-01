@@ -5,8 +5,12 @@
   "description": "Marketplace antidesperdicio Quaz di Graca.",
   "scripts": {
     "dev": "npm run dev --workspace @quaz/web",
+    "dev:app": "npm run dev --workspace @quaz/app -- --port 3002",
     "build": "npm run build --workspace @quaz/web",
+    "build:app": "npm run build --workspace @quaz/app",
     "lint": "npm run lint --workspace @quaz/web",
+    "lint:app": "npm run lint --workspace @quaz/app",
+    "typecheck:app": "npm run typecheck --workspace @quaz/app",
     "typecheck": "npm run typecheck --workspace @quaz/web"
   },
   "workspaces": [
