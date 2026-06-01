@@ -7,12 +7,52 @@ type LeadFormProps = {
 };
 
 export function LeadForm({ kind }: LeadFormProps) {
-  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
+    "idle"
+  );
+  const [message, setMessage] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setStatus("submitting");
+    setMessage("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const payload =
+      kind === "consumer"
+        ? {
+            kind,
+            email: String(formData.get("email") ?? "")
+          }
+        : {
+            kind,
+            businessName: String(formData.get("business") ?? ""),
+            contact: String(formData.get("contact") ?? "")
+          };
+
+    const response = await fetch("/api/leads", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = (await response.json().catch(() => null)) as {
+      message?: string;
+    } | null;
+
+    if (!response.ok) {
+      setStatus("error");
+      setMessage(result?.message ?? "Não foi possível enviar agora.");
+      return;
+    }
+
     setStatus("success");
-    event.currentTarget.reset();
+    setMessage(result?.message ?? "Interesse registrado com sucesso.");
+    form.reset();
   }
 
   if (kind === "partner") {
@@ -32,10 +72,12 @@ export function LeadForm({ kind }: LeadFormProps) {
           placeholder="WhatsApp ou e-mail"
           required
         />
-        <button type="submit">Entrar na lista de parceiros</button>
-        {status === "success" ? (
-          <p className="formMessage" role="status">
-            Recebido. Na próxima etapa vamos conectar este formulário ao banco.
+        <button type="submit" disabled={status === "submitting"}>
+          {status === "submitting" ? "Enviando..." : "Entrar na lista de parceiros"}
+        </button>
+        {status === "success" || status === "error" ? (
+          <p className={`formMessage ${status}`} role="status">
+            {message}
           </p>
         ) : null}
       </form>
@@ -53,11 +95,13 @@ export function LeadForm({ kind }: LeadFormProps) {
           placeholder="seu@email.com"
           required
         />
-        <button type="submit">Quero saber</button>
+        <button type="submit" disabled={status === "submitting"}>
+          {status === "submitting" ? "Enviando..." : "Quero saber"}
+        </button>
       </div>
-      {status === "success" ? (
-        <p className="formMessage" role="status">
-          Pronto. Seu interesse foi registrado nesta experiência local.
+      {status === "success" || status === "error" ? (
+        <p className={`formMessage ${status}`} role="status">
+          {message}
         </p>
       ) : null}
     </form>

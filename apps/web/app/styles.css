@@ -395,12 +395,21 @@ h2 {
   padding: 0 20px;
 }
 
+.leadForm button:disabled {
+  cursor: progress;
+  opacity: 0.72;
+}
+
 .formMessage {
   color: var(--green);
   font-size: 0.98rem;
   font-weight: 900;
   line-height: 1.35;
   margin: 4px 0 0;
+}
+
+.formMessage.error {
+  color: #c23519;
 }
 
 .footer {

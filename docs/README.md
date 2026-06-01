@@ -10,6 +10,7 @@ Este diretorio concentra a documentacao-base para orientar planejamento, Codex, 
 - [banco-de-dados.md](banco-de-dados.md): tabelas iniciais, campos e regras de acesso.
 - [roadmap.md](roadmap.md): fases de construcao do projeto.
 - [decisoes.md](decisoes.md): decisoes tomadas, pontos a confirmar, riscos e mitigacoes.
+- [supabase.md](supabase.md): configuracao do backend gratuito, env vars e migration de leads.
 
 ## Como Usar Com Codex
 
@@ -21,4 +22,3 @@ Use quaz-architecture e docs/arquitetura.md para criar a estrutura do monorepo.
 Use quaz-product e docs/jornadas.md para detalhar o fluxo do parceiro.
 Use quaz-implementation e docs/banco-de-dados.md para iniciar o schema.
 ```
-

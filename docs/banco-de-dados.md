@@ -15,6 +15,7 @@ admin
 ## Tabelas Iniciais
 
 ```txt
+lead_submissions
 users
 partners
 stores
@@ -32,6 +33,22 @@ coupons
 notifications
 impact_metrics
 audit_logs
+```
+
+## lead_submissions
+
+Tabela inicial para capturar interessados no site institucional antes do MVP transacional.
+
+```txt
+id
+kind: consumer | partner
+email
+contact
+business_name
+source
+status
+user_agent
+created_at
 ```
 
 ## users
@@ -173,4 +190,3 @@ updated_at
 ## Observacao
 
 O desenho final deve virar migration versionada antes do MVP transacional.
-
