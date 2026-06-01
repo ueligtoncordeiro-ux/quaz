@@ -4,25 +4,31 @@
 
 Nao usar a organizacao `caseos-ux`.
 
-Criar manualmente no Supabase:
+Projeto criado no Supabase:
 
 ```txt
-Organizacao: quaz
-Projeto: quaz-prod
-Regiao sugerida: South America, se estiver disponivel, ou a regiao mais proxima do Brasil.
+Organizacao: Quaz
+Projeto: wgzrncvryjfhsrmfhgap
+Project URL: https://wgzrncvryjfhsrmfhgap.supabase.co
+Regiao: us-west-2
 Plano: Free
 ```
 
 Depois de criado:
 
-1. Copiar `Project URL`.
-2. Copiar `service_role key`.
-3. Aplicar a migration `supabase/migrations/202605310001_create_lead_submissions.sql`.
-4. Configurar as variaveis na Hostinger:
+1. Aplicar a migration `supabase/migrations/202605310001_create_lead_submissions.sql`.
+2. Copiar `service_role key` em Settings > API Keys.
+3. Configurar as variaveis na Hostinger:
 
 ```txt
 NEXT_PUBLIC_SUPABASE_URL
 SUPABASE_SERVICE_ROLE_KEY
+```
+
+Usar:
+
+```txt
+NEXT_PUBLIC_SUPABASE_URL=https://wgzrncvryjfhsrmfhgap.supabase.co
 ```
 
 ## 2. Hostinger

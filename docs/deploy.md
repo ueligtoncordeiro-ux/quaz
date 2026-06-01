@@ -68,6 +68,12 @@ NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto-quaz.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key
 ```
 
+Projeto atual:
+
+```txt
+NEXT_PUBLIC_SUPABASE_URL=https://wgzrncvryjfhsrmfhgap.supabase.co
+```
+
 Se o painel da Hostinger pedir caminho ou pasta do app, usar a raiz do repositorio e os scripts acima. O monorepo resolve `@quaz/web` via npm workspaces.
 
 ## App Consumidor
