@@ -6,7 +6,7 @@ Usar Supabase Free como backend inicial da Quaz di Graca.
 
 Foi encontrado um projeto Supabase existente na conta, mas ele contem tabelas de outro sistema (`usuarios`, `sessoes`, `revisoes`, entre outras). Por isso, ele nao deve ser usado como banco oficial de producao do Quaz.
 
-Recomendacao: criar um projeto Supabase dedicado, por exemplo `quaz-prod`, antes de configurar a Vercel e os formularios em producao.
+Recomendacao: criar uma nova organizacao Supabase para o Quaz e, dentro dela, um projeto dedicado `quaz-prod`, antes de configurar a Hostinger e os formularios em producao.
 
 Observacao: a migration `create_lead_submissions` foi aplicada no projeto existente `mmeansbyergxxoytvjpn` durante a validacao inicial. Se esse banco pertencer a outro produto, remova a tabela `lead_submissions` somente depois de confirmar que ela nao sera usada.
 
@@ -15,8 +15,9 @@ Alerta de seguranca: esse projeto existente tem tabelas publicas com RLS desativ
 ## Criar Projeto
 
 1. Acesse o dashboard do Supabase.
-2. Crie um projeto gratuito dedicado ao Quaz.
-3. Copie:
+2. Crie uma nova organizacao separada, por exemplo `quaz`.
+3. Dentro dessa organizacao, crie um projeto gratuito dedicado, por exemplo `quaz-prod`.
+4. Copie:
    - Project URL
    - Service role key
 

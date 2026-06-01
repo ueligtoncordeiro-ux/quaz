@@ -10,6 +10,8 @@
     "build:app": "npm run build --workspace @quaz/app",
     "lint": "npm run lint --workspace @quaz/web",
     "lint:app": "npm run lint --workspace @quaz/app",
+    "start": "npm run start --workspace @quaz/web",
+    "start:app": "npm run start --workspace @quaz/app",
     "typecheck:app": "npm run typecheck --workspace @quaz/app",
     "typecheck": "npm run typecheck --workspace @quaz/web"
   },
