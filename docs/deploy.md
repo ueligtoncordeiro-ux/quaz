@@ -68,19 +68,19 @@ Next.js
 Root directory:
 
 ```txt
-/
+apps/web
 ```
 
 Install command:
 
 ```txt
-npm install
+cd ../.. && npm install
 ```
 
 Build command:
 
 ```txt
-npm run build
+cd ../.. && npm run build
 ```
 
 Output:
@@ -96,6 +96,12 @@ No painel da Vercel, configurar:
 ```txt
 NEXT_PUBLIC_SUPABASE_URL
 SUPABASE_SERVICE_ROLE_KEY
+```
+
+Usar a URL do projeto Supabase dedicado do Quaz:
+
+```txt
+NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto-quaz.supabase.co
 ```
 
 Enquanto o Supabase nao estiver configurado, o site ainda builda, mas os formularios mostram mensagem de configuracao pendente.
