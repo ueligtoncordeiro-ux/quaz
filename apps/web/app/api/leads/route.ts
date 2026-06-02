@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "../../lib/supabase";
+import { sendLeadNotification } from "../../lib/email";
 
 type LeadPayload =
   | {
@@ -109,6 +110,13 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+
+  // Notificação por e-mail — não bloqueia a resposta em caso de falha
+  await sendLeadNotification(
+    payload.kind === "consumer"
+      ? { kind: "consumer", email: payload.email }
+      : { kind: "partner", businessName: payload.businessName, contact: payload.contact }
+  );
 
   return NextResponse.json({
     message: "Interesse registrado com sucesso."
