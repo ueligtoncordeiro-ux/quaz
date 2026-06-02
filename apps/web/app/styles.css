@@ -767,6 +767,57 @@ h2 {
   gap: 8px;
 }
 
+.adminFilters {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-bottom: 16px;
+}
+
+.adminFilterGroup {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.adminFilterGroup span {
+  color: #888;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.adminFilterChip {
+  background: #f0f0f0;
+  border-radius: 20px;
+  color: #444;
+  font-size: 0.8rem;
+  padding: 3px 12px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.adminFilterChip:hover {
+  background: #e0e0e0;
+}
+
+.adminFilterChip.active {
+  background: var(--orange);
+  color: #fff;
+}
+
+.adminCsvLink {
+  color: #666;
+  font-size: 0.8rem;
+  margin-left: auto;
+  text-decoration: underline;
+}
+
+.adminCsvLink:hover {
+  color: var(--orange);
+}
+
 .adminCityTag {
   background: #f0f4ff;
   border-radius: 6px;

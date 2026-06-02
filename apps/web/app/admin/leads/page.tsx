@@ -5,6 +5,10 @@ import { createSupabaseAdminClient } from "../../lib/supabase";
 
 export const dynamic = "force-dynamic";
 
+type PageProps = {
+  searchParams: Promise<{ kind?: string; status?: string }>;
+};
+
 type Lead = {
   id: string;
   kind: "consumer" | "partner";
@@ -35,7 +39,7 @@ function formatDate(value: string) {
   }).format(new Date(value));
 }
 
-async function getLeads() {
+async function getLeads(kind?: string, status?: string) {
   const supabase = createSupabaseAdminClient();
 
   if (!supabase) {
@@ -45,11 +49,20 @@ async function getLeads() {
     };
   }
 
-  const { data, error } = await supabase
+  let query = supabase
     .from("lead_submissions")
     .select("id, kind, email, contact, business_name, source, status, created_at, city, phone, notes, handled_by")
     .order("created_at", { ascending: false })
     .limit(200);
+
+  if (kind === "consumer" || kind === "partner") {
+    query = query.eq("kind", kind);
+  }
+  if (status && ["new", "contacted", "approved", "rejected"].includes(status)) {
+    query = query.eq("status", status);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     return {
@@ -64,7 +77,7 @@ async function getLeads() {
   };
 }
 
-export default async function AdminLeadsPage() {
+export default async function AdminLeadsPage({ searchParams }: PageProps) {
   const authenticated = await isAdminAuthenticated();
 
   if (!authenticated) {
@@ -82,7 +95,8 @@ export default async function AdminLeadsPage() {
     );
   }
 
-  const { leads, error } = await getLeads();
+  const { kind, status } = await searchParams;
+  const { leads, error } = await getLeads(kind, status);
   const totalConsumers = leads.filter((lead) => lead.kind === "consumer").length;
   const totalPartners = leads.filter((lead) => lead.kind === "partner").length;
   const totalNew = leads.filter((lead) => lead.status === "new").length;
@@ -124,6 +138,34 @@ export default async function AdminLeadsPage() {
       </section>
 
       {error ? <p className="adminMessage error">{error}</p> : null}
+
+      <section className="adminFilters" aria-label="Filtros">
+        <div className="adminFilterGroup">
+          <span>Tipo:</span>
+          <a className={`adminFilterChip${!kind ? " active" : ""}`} href="/admin/leads">Todos</a>
+          <a className={`adminFilterChip${kind === "partner" ? " active" : ""}`} href="/admin/leads?kind=partner">Parceiros</a>
+          <a className={`adminFilterChip${kind === "consumer" ? " active" : ""}`} href="/admin/leads?kind=consumer">Consumidores</a>
+        </div>
+        <div className="adminFilterGroup">
+          <span>Status:</span>
+          <a className={`adminFilterChip${!status ? " active" : ""}`} href={`/admin/leads${kind ? `?kind=${kind}` : ""}`}>Todos</a>
+          {Object.entries(statusLabels).map(([value, label]) => (
+            <a
+              key={value}
+              className={`adminFilterChip${status === value ? " active" : ""}`}
+              href={`/admin/leads?${kind ? `kind=${kind}&` : ""}status=${value}`}
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+        <a
+          className="adminCsvLink"
+          href={`/admin/leads/export${kind || status ? `?${kind ? `kind=${kind}` : ""}${kind && status ? "&" : ""}${status ? `status=${status}` : ""}` : ""}`}
+        >
+          ↓ Exportar CSV
+        </a>
+      </section>
 
       <section className="adminTableWrap" aria-label="Tabela de leads">
         <table className="adminTable">
