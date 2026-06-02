@@ -10,7 +10,11 @@ type LeadPayload =
   | {
       kind: "partner";
       businessName: string;
-      contact: string;
+      businessType: string;
+      city: string;
+      whatsapp: string;
+      email: string | null;
+      hours: string | null;
     };
 
 type LeadSubmissionRow = {
@@ -18,6 +22,9 @@ type LeadSubmissionRow = {
   email: string | null;
   contact: string | null;
   business_name: string | null;
+  city: string | null;
+  phone: string | null;
+  notes: string | null;
   source: "web";
   user_agent: string | null;
 };
@@ -46,16 +53,40 @@ function parsePayload(payload: unknown): LeadPayload | null {
   if (
     data.kind === "partner" &&
     typeof data.businessName === "string" &&
+    typeof data.businessType === "string" &&
+    typeof data.city === "string" &&
+    typeof data.whatsapp === "string"
+  ) {
+    const businessName = data.businessName.trim();
+    const businessType = data.businessType.trim();
+    const city = data.city.trim();
+    const whatsapp = data.whatsapp.trim();
+
+    if (!businessName || !businessType || !city || whatsapp.length < 8) {
+      return null;
+    }
+
+    return {
+      kind: "partner",
+      businessName,
+      businessType,
+      city,
+      whatsapp,
+      email: typeof data.email === "string" && data.email.trim() ? data.email.trim().toLowerCase() : null,
+      hours: typeof data.hours === "string" && data.hours.trim() ? data.hours.trim() : null,
+    };
+  }
+
+  // legacy partner payload (contact field) — keep backward compat
+  if (
+    data.kind === "partner" &&
+    typeof data.businessName === "string" &&
     typeof data.contact === "string"
   ) {
     const businessName = data.businessName.trim();
     const contact = data.contact.trim();
-
-    if (!businessName || contact.length < 5) {
-      return null;
-    }
-
-    return { kind: "partner", businessName, contact };
+    if (!businessName || contact.length < 5) return null;
+    return { kind: "partner", businessName, businessType: "", city: "", whatsapp: contact, email: null, hours: null };
   }
 
   return null;
@@ -90,14 +121,23 @@ export async function POST(request: Request) {
           email: payload.email,
           business_name: null,
           contact: null,
+          city: null,
+          phone: null,
+          notes: null,
           source: "web",
           user_agent: request.headers.get("user-agent")
         }
       : {
           kind: payload.kind,
-          email: null,
+          email: payload.email,
           business_name: payload.businessName,
-          contact: payload.contact,
+          contact: payload.whatsapp,
+          city: payload.city || null,
+          phone: payload.whatsapp,
+          notes: [
+            payload.businessType ? `Tipo: ${payload.businessType}` : null,
+            payload.hours ? `Horário: ${payload.hours}` : null,
+          ].filter(Boolean).join(" | ") || null,
           source: "web",
           user_agent: request.headers.get("user-agent")
         };
@@ -115,7 +155,15 @@ export async function POST(request: Request) {
   await sendLeadNotification(
     payload.kind === "consumer"
       ? { kind: "consumer", email: payload.email }
-      : { kind: "partner", businessName: payload.businessName, contact: payload.contact }
+      : {
+          kind: "partner",
+          businessName: payload.businessName,
+          contact: payload.whatsapp,
+          businessType: payload.businessType,
+          city: payload.city,
+          email: payload.email,
+          hours: payload.hours,
+        }
   );
 
   return NextResponse.json({

@@ -1,4 +1,4 @@
-import { LeadForm } from "../components/LeadForm";
+import { PartnerForm } from "../components/PartnerForm";
 import { SiteHeader } from "../components/SiteHeader";
 import { partnerSteps } from "../data/site";
 
@@ -26,7 +26,7 @@ export default function SejaParceiroPage() {
             apresentar a plataforma, tirar dúvidas e apoiar o seu cadastro.
           </p>
         </div>
-        <LeadForm kind="partner" />
+        <PartnerForm />
       </section>
 
       <section className="section">
