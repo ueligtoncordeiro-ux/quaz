@@ -4,7 +4,7 @@ const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null;
 
-const NOTIFY_TO = process.env.NOTIFY_EMAIL ?? "ueligtoncordeiro@gmail.com";
+const NOTIFY_TO = process.env.NOTIFY_EMAIL ?? "contato@quazdigraca.com.br";
 const FROM = "Quáz di Graça <notificacoes@quazdigraca.com.br>";
 
 type ConsumerLead = {
