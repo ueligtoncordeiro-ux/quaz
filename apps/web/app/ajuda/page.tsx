@@ -8,10 +8,10 @@ export default function AjudaPage() {
         <SiteHeader />
         <div>
           <p className="eyebrow">central de ajuda</p>
-          <h1>Respostas rápidas para consumidores e parceiros.</h1>
+          <h1>Dúvidas frequentes.</h1>
           <p className="lead">
-            Esta central será expandida junto com o piloto. Por enquanto, ela
-            registra as dúvidas principais da experiência.
+            Tem alguma pergunta que não está aqui? Fale com a gente pelo
+            formulário da página de parceiros ou entre na lista de espera.
           </p>
         </div>
       </section>

@@ -8,10 +8,10 @@ export default function OndeEstamosPage() {
         <SiteHeader />
         <div>
           <p className="eyebrow">onde estamos</p>
-          <h1>Primeiras cidades em preparacao para o piloto.</h1>
+          <h1>Primeiras cidades do lançamento.</h1>
           <p className="lead">
-            Estamos organizando a operação inicial por cidade, priorizando locais
-            com parceiros interessados e demanda de consumidores.
+            Estamos chegando em cidades com parceiros interessados e consumidores
+            prontos para economizar e reduzir desperdício.
           </p>
         </div>
       </section>
@@ -21,7 +21,7 @@ export default function OndeEstamosPage() {
           {pilotCities.map((city) => (
             <article className="city" key={city}>
               <span>{city}</span>
-              <strong>em planejamento</strong>
+              <strong>em breve</strong>
             </article>
           ))}
         </div>

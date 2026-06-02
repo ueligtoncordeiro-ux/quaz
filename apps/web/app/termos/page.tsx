@@ -7,10 +7,10 @@ export default function TermosPage() {
         <SiteHeader />
         <div>
           <p className="eyebrow">termos de uso</p>
-          <h1>Termos em elaboracao.</h1>
+          <h1>Termos de Uso.</h1>
           <p className="lead">
-            Esta página será substituída pelo documento jurídico final antes do
-            piloto transacional.
+            Ao usar a plataforma Quáz di Graça, você concorda com as condições
+            descritas neste documento. Última atualização: junho de 2025.
           </p>
         </div>
       </section>

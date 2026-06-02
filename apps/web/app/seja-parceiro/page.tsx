@@ -22,8 +22,8 @@ export default function SejaParceiroPage() {
           <p className="eyebrow">operação simples</p>
           <h2>Seu excedente vira oportunidade.</h2>
           <p>
-            No MVP, o cadastro de parceiros será revisado manualmente para manter
-            qualidade, suporte próximo e regras claras de retirada.
+            Preencha o formulário ao lado e nossa equipe entra em contato para
+            apresentar a plataforma, tirar dúvidas e apoiar o seu cadastro.
           </p>
         </div>
         <LeadForm kind="partner" />

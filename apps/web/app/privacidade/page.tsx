@@ -7,10 +7,10 @@ export default function PrivacidadePage() {
         <SiteHeader />
         <div>
           <p className="eyebrow">privacidade</p>
-          <h1>Política de privacidade em elaboração.</h1>
+          <h1>Política de Privacidade.</h1>
           <p className="lead">
-            Esta página vai detalhar dados coletados, finalidade, segurança e
-            direitos dos usuários antes do lançamento.
+            A Quáz di Graça respeita sua privacidade. Esta política descreve como
+            coletamos, usamos e protegemos seus dados. Última atualização: junho de 2025.
           </p>
         </div>
       </section>

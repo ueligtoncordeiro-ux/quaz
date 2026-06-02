@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
+import { Baloo_2 } from "next/font/google";
 import { brand } from "@quaz/config";
 import { SiteFooter } from "./components/SiteFooter";
 import "./styles.css";
+
+const baloo = Baloo_2({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-baloo",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(brand.siteUrl),
@@ -30,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={baloo.variable}>
       <body>
         {children}
         <SiteFooter />

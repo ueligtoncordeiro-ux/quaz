@@ -29,8 +29,8 @@ export const partnerSteps = [
 ];
 
 export const pilotCities = [
-  "Cuiaba",
-  "Varzea Grande",
+  "Cuiabá",
+  "Várzea Grande",
   "São Paulo",
   "Campinas"
 ];
@@ -39,16 +39,26 @@ export const faqs = [
   {
     question: "O que é um Achado Quáz?",
     answer:
-      "É uma oferta com preço reduzido criada por um estabelecimento parceiro. Os itens podem variar conforme disponibilidade."
+      "É uma oferta com preço reduzido criada por um estabelecimento parceiro — pães do dia, marmitas, frutas, combos surpresa. Os itens variam conforme o que o parceiro tem disponível."
   },
   {
-    question: "A plataforma já está vendendo?",
+    question: "Quando vou conseguir comprar pelo app?",
     answer:
-      "Ainda estamos preparando o piloto. A lista de espera servirá para avisar consumidores e parceiros nas primeiras cidades."
+      "Estamos finalizando o lançamento. Entre na lista de espera e você será um dos primeiros avisados quando a plataforma abrir nas primeiras cidades."
   },
   {
-    question: "Como um parceiro recebe os pedidos?",
+    question: "Quanto custa para participar como consumidor?",
     answer:
-      "No painel parceiro, a loja acompanha pedidos pagos, horários de retirada e validação por código."
+      "Nada. O cadastro é gratuito. Você paga apenas pelos Achados Quáz que resgatar."
+  },
+  {
+    question: "Sou dono de restaurante. Como me torno parceiro?",
+    answer:
+      "Acesse a página 'Seja parceiro', preencha o formulário e nossa equipe entrará em contato para orientar o cadastro e a operação."
+  },
+  {
+    question: "Como funciona a retirada?",
+    answer:
+      "Após confirmar o pagamento, você recebe um código de retirada. Basta apresentar ao estabelecimento no horário combinado para retirar seu pedido."
   }
 ];

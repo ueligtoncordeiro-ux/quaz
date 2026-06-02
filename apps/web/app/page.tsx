@@ -31,11 +31,12 @@ export default function Home() {
 
         <div className="heroGrid">
           <div className="heroCopy">
-            <p className="eyebrow">ache. resgate. aproveite.</p>
+            <p className="eyebrow">Ache · Resgate · Aproveite</p>
             <h1 id="hero-title">Comida boa, preço quáz, desperdício não.</h1>
             <p className="lead">
               A Quáz di Graça conecta você a restaurantes, padarias e mercados
-              com Achados Quáz por preços muito reduzidos.
+              locais com ofertas de até 70% off — e ainda ajuda a reduzir o
+              desperdício de alimentos.
             </p>
             <div className="actions">
               <a className="button primary" href="#lista-espera">
@@ -107,19 +108,19 @@ export default function Home() {
       </section>
 
       <section className="impact" id="impacto">
-        <p className="eyebrow">Impacto positivo</p>
-        <h2>Economia para pessoas, receita para comércios e menos desperdício.</h2>
+        <p className="eyebrow">Por que importa</p>
+        <h2>Comida boa que seria perdida chega a quem quer pagar menos.</h2>
         <div className="metrics">
-          <span style={{ backgroundColor: brandColors.orange }}>preço quáz</span>
-          <span style={{ backgroundColor: brandColors.green }}>menos perda</span>
-          <span style={{ backgroundColor: brandColors.purple }}>mais conexão</span>
+          <span style={{ backgroundColor: brandColors.orange }}>até 70% off</span>
+          <span style={{ backgroundColor: brandColors.green }}>zero desperdício</span>
+          <span style={{ backgroundColor: brandColors.purple }}>comércio local</span>
         </div>
       </section>
 
       <section className="waitlist" id="lista-espera">
         <div>
-          <p className="eyebrow">Piloto em breve</p>
-          <h2>Entre na lista para acompanhar o lançamento.</h2>
+          <p className="eyebrow">Seja o primeiro a saber</p>
+          <h2>Entre na lista e receba o aviso do lançamento.</h2>
         </div>
         <LeadForm kind="consumer" />
       </section>
