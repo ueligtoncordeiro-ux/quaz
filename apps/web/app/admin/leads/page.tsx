@@ -191,8 +191,17 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
                     </td>
                     <td>
                       <strong>{lead.business_name ?? lead.email}</strong>
-                      <span>{lead.contact ?? lead.email ?? "Sem contato"}</span>
+                      {lead.contact ? <span>{lead.contact}</span> : null}
+                      {lead.email && lead.kind === "partner" ? <span className="adminEmailTag">{lead.email}</span> : null}
+                      {!lead.contact && !lead.email ? <span>Sem contato</span> : null}
                       {lead.city ? <span className="adminCityTag">{lead.city}</span> : null}
+                      {lead.notes ? (
+                        <span className="adminNotesTags">
+                          {lead.notes.split(" | ").map((tag) => (
+                            <span key={tag} className="adminNotesTag">{tag}</span>
+                          ))}
+                        </span>
+                      ) : null}
                     </td>
                     <td>{statusLabels[lead.status] ?? lead.status}</td>
                     <td>{lead.source}</td>
@@ -226,16 +235,22 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
                               <input name="city" type="text" defaultValue={lead.city ?? ""} placeholder="Ex: Tangará da Serra" />
                             </label>
                             <label>
-                              <span>Telefone</span>
-                              <input name="phone" type="text" defaultValue={lead.phone ?? ""} placeholder="(65) 9 9999-9999" />
+                              <span>Telefone / WhatsApp</span>
+                              <input name="phone" type="text" defaultValue={lead.phone ?? lead.contact ?? ""} placeholder="(65) 9 9999-9999" />
                             </label>
                             <label>
                               <span>Responsável</span>
                               <input name="handled_by" type="text" defaultValue={lead.handled_by ?? ""} placeholder="Nome do atendente" />
                             </label>
+                            {lead.email ? (
+                              <label>
+                                <span>E-mail</span>
+                                <input type="email" value={lead.email} readOnly style={{background:"#f7f7f7", cursor:"default"}} />
+                              </label>
+                            ) : null}
                             <label className="adminDetailFull">
-                              <span>Observações</span>
-                              <textarea name="notes" rows={2} defaultValue={lead.notes ?? ""} placeholder="Notas internas sobre este lead..." />
+                              <span>Observações / Dados do cadastro</span>
+                              <textarea name="notes" rows={3} defaultValue={lead.notes ?? ""} placeholder="Notas internas sobre este lead..." />
                             </label>
                           </div>
                           <button type="submit" className="adminDetailSave">Salvar detalhes</button>
