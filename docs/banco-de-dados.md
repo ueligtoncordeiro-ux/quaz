@@ -45,10 +45,15 @@ kind: consumer | partner
 email
 contact
 business_name
+city
+phone
+notes
+handled_by
 source
 status
 user_agent
 created_at
+updated_at
 ```
 
 ## users

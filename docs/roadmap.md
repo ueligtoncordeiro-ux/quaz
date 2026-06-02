@@ -65,6 +65,7 @@ Objetivo: controlar a operacao.
 Entregas:
 
 - admin inicial de leads.
+- campos operacionais para tratar leads.
 - aprovar parceiros.
 - gerenciar lojas.
 - gerenciar achados.

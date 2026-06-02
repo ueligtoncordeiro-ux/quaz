@@ -9,7 +9,7 @@ export default function SejaParceiroPage() {
         <SiteHeader />
         <div>
           <p className="eyebrow">seja parceiro</p>
-          <h1>Venda mais do que já estava pronto.</h1>
+          <h1>Transforme sobras em novas vendas.</h1>
           <p className="lead">
             Publique Achados Quáz, reduza perdas e alcance consumidores que querem
             economizar sem abrir mão de comida boa.

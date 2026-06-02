@@ -111,3 +111,23 @@ Fluxo:
 4. Atualizar status entre `Novo`, `Contatado`, `Aprovado` e `Rejeitado`.
 
 Esse admin e a base para iniciar a operacao do piloto antes de criar painel completo de parceiros.
+
+## 6. Campos Operacionais Dos Leads
+
+Migration preparada:
+
+```txt
+supabase/migrations/202606020001_extend_lead_submissions_operations.sql
+```
+
+Ela adiciona:
+
+```txt
+city
+phone
+notes
+handled_by
+updated_at
+```
+
+Aplicar essa migration no Supabase antes de evoluir o admin para editar cidade, telefone e observacoes.
