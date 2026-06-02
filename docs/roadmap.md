@@ -64,6 +64,7 @@ Objetivo: controlar a operacao.
 
 Entregas:
 
+- admin inicial de leads.
 - aprovar parceiros.
 - gerenciar lojas.
 - gerenciar achados.
@@ -118,4 +119,3 @@ Entregas:
 - resumo de avaliacoes.
 - recomendacao personalizada.
 - relatorios de impacto.
-

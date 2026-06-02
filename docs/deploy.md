@@ -37,9 +37,10 @@ NEXT_PUBLIC_SUPABASE_URL=https://wgzrncvryjfhsrmfhgap.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=<service role key do projeto Quaz>
 RESEND_API_KEY=<chave da Resend>
 NOTIFY_EMAIL=contato@quazdigraca.com.br
+ADMIN_ACCESS_TOKEN=<senha forte para /admin/leads>
 ```
 
-Nunca commitar `SUPABASE_SERVICE_ROLE_KEY` nem `RESEND_API_KEY`.
+Nunca commitar `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY` nem `ADMIN_ACCESS_TOKEN`.
 
 ## Supabase
 

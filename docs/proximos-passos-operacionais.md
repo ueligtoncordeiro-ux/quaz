@@ -34,6 +34,7 @@ NEXT_PUBLIC_SUPABASE_URL
 SUPABASE_SERVICE_ROLE_KEY
 RESEND_API_KEY
 NOTIFY_EMAIL
+ADMIN_ACCESS_TOKEN
 ```
 
 Usar:
@@ -87,3 +88,26 @@ Depois do deploy:
 4. Conferir se os registros aparecem em `public.lead_submissions`.
 5. Testar redirecionamento do `.com` para `.com.br`.
 6. Conferir notificacao por e-mail.
+
+## 5. Admin De Leads
+
+Rota operacional inicial:
+
+```txt
+/admin/leads
+```
+
+Variavel obrigatoria:
+
+```txt
+ADMIN_ACCESS_TOKEN
+```
+
+Fluxo:
+
+1. Acessar `/admin/leads`.
+2. Entrar com a senha definida em `ADMIN_ACCESS_TOKEN`.
+3. Ver leads de consumidores e parceiros.
+4. Atualizar status entre `Novo`, `Contatado`, `Aprovado` e `Rejeitado`.
+
+Esse admin e a base para iniciar a operacao do piloto antes de criar painel completo de parceiros.
