@@ -2,16 +2,69 @@
 
 ## Decisao Atual
 
-Vercel saiu da rota do projeto. O caminho recomendado agora e:
+A infraestrutura atual do Quaz e:
 
-1. Hostinger para deploy inicial do Next.js, aproveitando a conta e os dominios ja comprados.
-2. Supabase em uma organizacao separada do produto CaseOS.
-3. Cloudflare como alternativa futura para DNS/CDN/Workers, se quisermos separar DNS da Hostinger.
+- Vercel para deploy do site institucional em Next.js.
+- Supabase dedicado da organizacao `Quaz` para banco e backend inicial.
+- Hostinger como origem dos dominios comprados.
+- Cloudflare fica como alternativa futura para DNS/CDN/Workers, se precisarmos.
 
-Referencias consultadas:
+## Vercel
 
-- Hostinger informa suporte a Next.js em hospedagem Node.js: https://www.hostinger.com/web-apps-hosting/nextjs-hosting
-- Cloudflare recomenda OpenNext/Workers para Next.js full-stack e Pages para export estatico: https://developers.cloudflare.com/pages/framework-guides/nextjs/
+Projeto atual:
+
+```txt
+Repositorio: ueligtoncordeiro-ux/quaz
+App publicado: apps/web
+Framework: Next.js
+Root Directory no painel da Vercel: apps/web
+```
+
+Configuracao esperada no projeto Vercel:
+
+```txt
+Install command: npm install
+Build command: npm run build
+Output directory: .next
+```
+
+O arquivo `vercel.json` da raiz registra essa configuracao. Como a Vercel esta com root em `apps/web`, o output `.next` se refere a `apps/web/.next`.
+
+Variaveis de ambiente na Vercel:
+
+```txt
+NEXT_PUBLIC_SUPABASE_URL=https://wgzrncvryjfhsrmfhgap.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=<service role key do projeto Quaz>
+RESEND_API_KEY=<chave da Resend>
+NOTIFY_EMAIL=contato@quazdigraca.com.br
+```
+
+Nunca commitar `SUPABASE_SERVICE_ROLE_KEY` nem `RESEND_API_KEY`.
+
+## Supabase
+
+Projeto dedicado:
+
+```txt
+Organizacao: Quaz
+Project ID: wgzrncvryjfhsrmfhgap
+Project URL: https://wgzrncvryjfhsrmfhgap.supabase.co
+Regiao: us-west-2
+```
+
+Tabela operacional atual:
+
+```txt
+public.lead_submissions
+```
+
+Migration:
+
+```txt
+supabase/migrations/202605310001_create_lead_submissions.sql
+```
+
+Nao usar a organizacao `caseos-ux`, que pertence a outro produto.
 
 ## Dominios
 
@@ -34,102 +87,32 @@ Dominio secundario:
 quazdigraca.com
 ```
 
-O dominio `.com` deve redirecionar de forma permanente para:
+O dominio `.com` deve redirecionar permanentemente para:
 
 ```txt
 https://quazdigraca.com.br
 ```
 
-O middleware do app tambem reforca esse redirecionamento quando a aplicacao recebe trafego por `www` ou pelo `.com`.
-
-## Hostinger
-
-Usar o deploy Node.js/Next.js da Hostinger, nao upload estatico simples, porque o site tem rota API em:
-
-```txt
-apps/web/app/api/leads/route.ts
-```
-
-Configuracao sugerida para o projeto web:
-
-```txt
-Repositorio: ueligtoncordeiro-ux/quaz
-Diretorio do projeto: /
-Install command: npm install
-Build command: npm run build
-Start command: npm run start
-Dominio principal: quazdigraca.com.br
-```
-
-Variaveis de ambiente:
-
-```txt
-NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto-quaz.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key
-```
-
-Projeto atual:
-
-```txt
-NEXT_PUBLIC_SUPABASE_URL=https://wgzrncvryjfhsrmfhgap.supabase.co
-```
-
-Se o painel da Hostinger pedir caminho ou pasta do app, usar a raiz do repositorio e os scripts acima. O monorepo resolve `@quaz/web` via npm workspaces.
+O middleware do app reforca esse redirecionamento para trafego por `www` ou pelo `.com`.
 
 ## App Consumidor
 
-O app consumidor ainda e separado do site institucional:
+O app consumidor em `apps/app` ainda e prototipo interno. Quando for publicar:
 
 ```txt
-npm run dev:app
-npm run build:app
-npm run start:app
-```
-
-Quando for publicar, usar subdominio separado:
-
-```txt
-app.quazdigraca.com.br
-```
-
-Configuracao sugerida:
-
-```txt
-Repositorio: ueligtoncordeiro-ux/quaz
-Diretorio do projeto: /
-Install command: npm install
+Subdominio: app.quazdigraca.com.br
 Build command: npm run build:app
 Start command: npm run start:app
 ```
 
-## Supabase
+Por enquanto, o foco de producao e o site institucional e o fluxo de leads.
 
-Nao usar a organizacao `caseos-ux` para o Quaz. Criar uma nova organizacao no Supabase, por exemplo:
+## Checklist De Producao
 
-```txt
-quaz
-```
-
-Depois criar um projeto dedicado:
-
-```txt
-quaz-prod
-```
-
-Aplicar a migration:
-
-```txt
-supabase/migrations/202605310001_create_lead_submissions.sql
-```
-
-## SEO Tecnico
-
-O app ja define:
-
-```txt
-metadataBase = https://quazdigraca.com.br
-canonical = /
-sitemap.xml
-robots.txt
-favicon.png
-```
+1. Conferir deploy ativo na Vercel.
+2. Conferir dominio `quazdigraca.com.br`.
+3. Conferir redirecionamento de `quazdigraca.com`.
+4. Enviar lead consumidor pelo site.
+5. Enviar lead parceiro pelo site.
+6. Confirmar registros em `public.lead_submissions`.
+7. Confirmar e-mail de notificacao via Resend.

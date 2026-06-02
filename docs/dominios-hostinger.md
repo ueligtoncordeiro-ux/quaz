@@ -1,4 +1,4 @@
-# Dominios Hostinger
+# Dominios
 
 Dominios atuais:
 
@@ -9,7 +9,7 @@ Dominios atuais:
 
 Vincular depois do primeiro deploy na Vercel. Assim validamos build, variaveis de ambiente e rotas antes de mexer no DNS publico.
 
-## Configuracao Recomendada
+## Configuracao Recomendada Na Vercel
 
 1. Na Vercel, adicionar os quatro dominios ao projeto `quaz-web`:
    - `quazdigraca.com.br`
@@ -17,7 +17,7 @@ Vincular depois do primeiro deploy na Vercel. Assim validamos build, variaveis d
    - `quazdigraca.com`
    - `www.quazdigraca.com`
 2. Manter `quazdigraca.com.br` como dominio principal.
-3. No Hostinger, abrir a zona DNS de cada dominio e seguir exatamente os registros que a Vercel solicitar.
+3. No provedor onde o DNS estiver ativo, abrir a zona DNS de cada dominio e seguir exatamente os registros que a Vercel solicitar.
 4. Preferir:
    - `A` no dominio raiz apontando para o IP informado pela Vercel.
    - `CNAME` em `www` apontando para o destino informado pela Vercel.

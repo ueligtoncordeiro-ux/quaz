@@ -38,7 +38,7 @@ NEXT_PUBLIC_SUPABASE_URL="https://wgzrncvryjfhsrmfhgap.supabase.co"
 SUPABASE_SERVICE_ROLE_KEY="sua-service-role-key"
 ```
 
-No deploy da Hostinger, configure as mesmas variaveis no painel do projeto.
+No deploy da Vercel, configure as mesmas variaveis no painel do projeto.
 
 Importante:
 

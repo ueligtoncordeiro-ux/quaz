@@ -11,7 +11,7 @@ Este diretorio concentra a documentacao-base para orientar planejamento, Codex, 
 - [roadmap.md](roadmap.md): fases de construcao do projeto.
 - [decisoes.md](decisoes.md): decisoes tomadas, pontos a confirmar, riscos e mitigacoes.
 - [supabase.md](supabase.md): configuracao do backend gratuito, env vars e migration de leads.
-- [deploy.md](deploy.md): Vercel, dominios, DNS e SEO tecnico.
+- [deploy.md](deploy.md): Vercel, Supabase, dominios, DNS e SEO tecnico.
 
 ## Como Usar Com Codex
 
