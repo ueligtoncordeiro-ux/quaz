@@ -767,6 +767,97 @@ h2 {
   gap: 8px;
 }
 
+.adminCityTag {
+  background: #f0f4ff;
+  border-radius: 6px;
+  color: #555;
+  display: inline-block;
+  font-size: 0.72rem;
+  margin-top: 3px;
+  padding: 1px 6px;
+}
+
+.adminDetailRow td {
+  background: #fafafa;
+  border-top: none !important;
+  padding: 0 12px 8px !important;
+}
+
+.adminDetailToggle {
+  color: #888;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 4px 0;
+  user-select: none;
+}
+
+.adminDetailToggle:hover {
+  color: var(--orange);
+}
+
+.adminDetailForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 0 6px;
+}
+
+.adminDetailGrid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.adminDetailFull {
+  grid-column: 1 / -1;
+}
+
+.adminDetailGrid label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.adminDetailGrid label span {
+  color: #888;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.adminDetailGrid input,
+.adminDetailGrid textarea {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  resize: vertical;
+  width: 100%;
+}
+
+.adminDetailSave {
+  align-self: flex-start;
+  background: var(--orange);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 7px 18px;
+}
+
+.adminDetailSave:hover {
+  opacity: 0.88;
+}
+
+@media (max-width: 640px) {
+  .adminDetailGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .footer {
   align-items: center;
   background: var(--purple);

@@ -1,6 +1,6 @@
 import { AdminLoginForm } from "../components/AdminLoginForm";
 import { isAdminAuthenticated, logoutAdmin } from "../actions";
-import { updateLeadStatus } from "./actions";
+import { updateLeadStatus, updateLeadDetails } from "./actions";
 import { createSupabaseAdminClient } from "../../lib/supabase";
 
 export const dynamic = "force-dynamic";
@@ -14,6 +14,10 @@ type Lead = {
   source: string;
   status: string;
   created_at: string;
+  city: string | null;
+  phone: string | null;
+  notes: string | null;
+  handled_by: string | null;
 };
 
 const statusLabels: Record<string, string> = {
@@ -43,7 +47,7 @@ async function getLeads() {
 
   const { data, error } = await supabase
     .from("lead_submissions")
-    .select("id, kind, email, contact, business_name, source, status, created_at")
+    .select("id, kind, email, contact, business_name, source, status, created_at, city, phone, notes, handled_by")
     .order("created_at", { ascending: false })
     .limit(200);
 
@@ -136,33 +140,68 @@ export default async function AdminLeadsPage() {
           <tbody>
             {leads.length ? (
               leads.map((lead) => (
-                <tr key={lead.id}>
-                  <td>
-                    <span className={`adminBadge ${lead.kind}`}>
-                      {lead.kind === "partner" ? "Parceiro" : "Consumidor"}
-                    </span>
-                  </td>
-                  <td>
-                    <strong>{lead.business_name ?? lead.email}</strong>
-                    <span>{lead.contact ?? lead.email ?? "Sem contato"}</span>
-                  </td>
-                  <td>{statusLabels[lead.status] ?? lead.status}</td>
-                  <td>{lead.source}</td>
-                  <td>{formatDate(lead.created_at)}</td>
-                  <td>
-                    <form action={updateLeadStatus} className="adminInlineForm">
-                      <input name="id" type="hidden" value={lead.id} />
-                      <select aria-label="Alterar status" name="status" defaultValue={lead.status}>
-                        {Object.entries(statusLabels).map(([value, label]) => (
-                          <option key={value} value={value}>
-                            {label}
-                          </option>
-                        ))}
-                      </select>
-                      <button type="submit">Salvar</button>
-                    </form>
-                  </td>
-                </tr>
+                <>
+                  <tr key={lead.id}>
+                    <td>
+                      <span className={`adminBadge ${lead.kind}`}>
+                        {lead.kind === "partner" ? "Parceiro" : "Consumidor"}
+                      </span>
+                    </td>
+                    <td>
+                      <strong>{lead.business_name ?? lead.email}</strong>
+                      <span>{lead.contact ?? lead.email ?? "Sem contato"}</span>
+                      {lead.city ? <span className="adminCityTag">{lead.city}</span> : null}
+                    </td>
+                    <td>{statusLabels[lead.status] ?? lead.status}</td>
+                    <td>{lead.source}</td>
+                    <td>{formatDate(lead.created_at)}</td>
+                    <td>
+                      <form action={updateLeadStatus} className="adminInlineForm">
+                        <input name="id" type="hidden" value={lead.id} />
+                        <select aria-label="Alterar status" name="status" defaultValue={lead.status}>
+                          {Object.entries(statusLabels).map(([value, label]) => (
+                            <option key={value} value={value}>
+                              {label}
+                            </option>
+                          ))}
+                        </select>
+                        <button type="submit">Salvar</button>
+                      </form>
+                    </td>
+                  </tr>
+                  <tr key={`${lead.id}-details`} className="adminDetailRow">
+                    <td colSpan={6}>
+                      <details>
+                        <summary className="adminDetailToggle">
+                          Detalhes operacionais
+                          {lead.phone || lead.notes || lead.handled_by ? " ✎" : ""}
+                        </summary>
+                        <form action={updateLeadDetails} className="adminDetailForm">
+                          <input name="id" type="hidden" value={lead.id} />
+                          <div className="adminDetailGrid">
+                            <label>
+                              <span>Cidade</span>
+                              <input name="city" type="text" defaultValue={lead.city ?? ""} placeholder="Ex: Tangará da Serra" />
+                            </label>
+                            <label>
+                              <span>Telefone</span>
+                              <input name="phone" type="text" defaultValue={lead.phone ?? ""} placeholder="(65) 9 9999-9999" />
+                            </label>
+                            <label>
+                              <span>Responsável</span>
+                              <input name="handled_by" type="text" defaultValue={lead.handled_by ?? ""} placeholder="Nome do atendente" />
+                            </label>
+                            <label className="adminDetailFull">
+                              <span>Observações</span>
+                              <textarea name="notes" rows={2} defaultValue={lead.notes ?? ""} placeholder="Notas internas sobre este lead..." />
+                            </label>
+                          </div>
+                          <button type="submit" className="adminDetailSave">Salvar detalhes</button>
+                        </form>
+                      </details>
+                    </td>
+                  </tr>
+                </>
               ))
             ) : (
               <tr>
