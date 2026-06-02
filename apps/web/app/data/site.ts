@@ -29,10 +29,9 @@ export const partnerSteps = [
 ];
 
 export const pilotCities = [
-  "Cuiabá",
-  "Várzea Grande",
-  "São Paulo",
-  "Campinas"
+  "Tangará da Serra, MT",
+  "Nova Olímpia, MT",
+  "Campo Novo do Parecis, MT",
 ];
 
 export const faqs = [

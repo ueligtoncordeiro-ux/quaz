@@ -1,5 +1,6 @@
 import { brandColors } from "@quaz/config";
 import { LeadForm } from "./components/LeadForm";
+import { PhoneMockup } from "./components/PhoneMockup";
 import { SiteHeader } from "./components/SiteHeader";
 
 const steps = [
@@ -48,29 +49,8 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="heroCard" aria-label="Previa do aplicativo">
-            <div className="phone">
-              <div className="phoneTop">
-                <span>Próximos de você</span>
-                <strong>São Paulo, SP</strong>
-              </div>
-              <div className="offer">
-                <div>
-                  <span className="tag">Achado Quáz</span>
-                  <h2>Padaria da Vila</h2>
-                  <p>Combo surpresa de pães e doces</p>
-                </div>
-                <strong>R$ 9,90</strong>
-              </div>
-              <div className="offer green">
-                <div>
-                  <span className="tag">Retirada hoje</span>
-                  <h2>Mercado Central</h2>
-                  <p>Frutas e legumes selecionados</p>
-                </div>
-                <strong>R$ 12,90</strong>
-              </div>
-            </div>
+          <div className="heroCard">
+            <PhoneMockup />
           </div>
         </div>
       </section>
