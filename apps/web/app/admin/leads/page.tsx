@@ -1,6 +1,7 @@
 import { AdminLoginForm } from "../components/AdminLoginForm";
 import { isAdminAuthenticated, logoutAdmin } from "../actions";
 import { updateLeadStatus, updateLeadDetails } from "./actions";
+import { promoteLeadToStore } from "../stores/actions";
 import { createSupabaseAdminClient } from "../../lib/supabase";
 
 export const dynamic = "force-dynamic";
@@ -111,11 +112,12 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
             Acompanhe interessados, priorize parceiros e organize o início do piloto.
           </p>
         </div>
-        <form action={logoutAdmin}>
-          <button className="adminGhostButton" type="submit">
-            Sair
-          </button>
-        </form>
+        <nav className="adminNav">
+          <a href="/admin/stores" className="adminGhostButton">🏪 Lojas</a>
+          <form action={logoutAdmin}>
+            <button className="adminGhostButton" type="submit">Sair</button>
+          </form>
+        </nav>
       </section>
 
       <section className="adminMetrics" aria-label="Resumo de leads">
@@ -256,6 +258,55 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
                           <button type="submit" className="adminDetailSave">Salvar detalhes</button>
                         </form>
                       </details>
+
+                      {lead.kind === "partner" && lead.status === "approved" && (
+                        <details className="adminPromoteWrap">
+                          <summary className="adminPromoteToggle">🏪 Promover a loja</summary>
+                          <form action={promoteLeadToStore} className="adminDetailForm">
+                            <input type="hidden" name="lead_id" value={lead.id} />
+                            <p className="adminPromoteHint">
+                              Cria um registro ativo em <strong>Lojas</strong> a partir deste lead.
+                            </p>
+                            <div className="adminDetailGrid">
+                              <label>
+                                <span>Nome da loja *</span>
+                                <input name="name" required defaultValue={lead.business_name ?? ""} />
+                              </label>
+                              <label>
+                                <span>Tipo de negócio</span>
+                                <input name="type" defaultValue={
+                                  lead.notes?.match(/Tipo: ([^|]+)/)?.[1]?.trim() ?? ""
+                                } placeholder="Ex: Padaria" />
+                              </label>
+                              <label>
+                                <span>Cidade *</span>
+                                <input name="city" required defaultValue={lead.city ?? ""} />
+                              </label>
+                              <label>
+                                <span>Telefone / WhatsApp</span>
+                                <input name="phone" defaultValue={lead.phone ?? lead.contact ?? ""} />
+                              </label>
+                              <label>
+                                <span>E-mail</span>
+                                <input name="email" type="email" defaultValue={lead.email ?? ""} />
+                              </label>
+                              <label>
+                                <span>Horário</span>
+                                <input name="hours" defaultValue={
+                                  lead.notes?.match(/Horário: ([^|]+)/)?.[1]?.trim() ?? ""
+                                } placeholder="Ex: Seg–Sex 7h–19h" />
+                              </label>
+                              <label className="adminDetailFull">
+                                <span>Endereço</span>
+                                <input name="address" placeholder="Rua, número, bairro" />
+                              </label>
+                            </div>
+                            <button type="submit" className="adminDetailSave adminPromoteBtn">
+                              ✓ Criar loja ativa
+                            </button>
+                          </form>
+                        </details>
+                      )}
                     </td>
                   </tr>
                 </>

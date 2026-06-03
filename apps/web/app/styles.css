@@ -931,6 +931,42 @@ h2 {
   padding: 1px 7px;
 }
 
+.adminNav {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.adminMuted {
+  color: #aaa;
+  font-size: 0.75rem;
+}
+
+.adminPromoteWrap {
+  margin-top: 10px;
+  border-top: 1px dashed #e8e8e8;
+  padding-top: 8px;
+}
+
+.adminPromoteToggle {
+  color: var(--orange);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 4px 0;
+  user-select: none;
+}
+
+.adminPromoteHint {
+  color: #888;
+  font-size: 0.8rem;
+  margin: 6px 0 10px;
+}
+
+.adminPromoteBtn {
+  background: var(--green) !important;
+}
+
 .adminDetailRow td {
   background: #fafafa;
   border-top: none !important;
