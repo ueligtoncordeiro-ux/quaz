@@ -46,6 +46,14 @@ export async function promoteLeadToStore(formData: FormData): Promise<void> {
 
   const slug = await uniqueSlug(supabase, name);
 
+  // Try to auto-link user_id if a matching auth user exists
+  let userId: string | null = null;
+  if (email) {
+    const { data: listData } = await supabase.auth.admin.listUsers();
+    const match = listData?.users.find((u) => u.email?.toLowerCase() === email.toLowerCase());
+    if (match) userId = match.id;
+  }
+
   const { error } = await supabase.from("stores").insert({
     lead_id: leadId,
     slug,
@@ -57,6 +65,7 @@ export async function promoteLeadToStore(formData: FormData): Promise<void> {
     hours,
     address,
     status: "active",
+    user_id: userId,
   });
 
   if (error) return;
