@@ -221,6 +221,15 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
                         </select>
                         <button type="submit">Salvar</button>
                       </form>
+                      {lead.kind === "partner" && (
+                        <Link
+                          href={`/admin/leads/${lead.id}/promover`}
+                          className="adminDetailSave"
+                          style={{ display: "block", marginTop: "0.4rem", textAlign: "center", textDecoration: "none", fontSize: "0.78rem" }}
+                        >
+                          🏪 Promover
+                        </Link>
+                      )}
                     </td>
                   </tr>
                   <tr key={`${lead.id}-details`} className="adminDetailRow">
