@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState, useTransition } from "react";
 import { partnerCreateAchado } from "./actions";
 
 type Props = {
@@ -10,8 +11,21 @@ type Props = {
 };
 
 export function PainelAchados({ storeId, categories, defaultStart, defaultEnd }: Props) {
+  const [formKey, setFormKey] = useState(0);
+  const [isPending, startTransition] = useTransition();
+  const [success, setSuccess] = useState(false);
+
+  function handleSubmit(formData: FormData) {
+    startTransition(async () => {
+      await partnerCreateAchado(formData);
+      setFormKey((k) => k + 1);
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 3000);
+    });
+  }
+
   return (
-    <form action={partnerCreateAchado} className="achadoForm">
+    <form key={formKey} action={handleSubmit} className="achadoForm">
       <input type="hidden" name="store_id" value={storeId} />
       <div className="achadoFormGrid">
         <label className="achadoFull">
@@ -49,7 +63,14 @@ export function PainelAchados({ storeId, categories, defaultStart, defaultEnd }:
           <input name="pickup_end" type="datetime-local" required defaultValue={defaultEnd} />
         </label>
       </div>
-      <button type="submit" className="adminDetailSave">Publicar achado</button>
+      {success && (
+        <p style={{ color: "var(--green, #1a7f4b)", marginBottom: 8, fontWeight: 600 }}>
+          ✓ Achado publicado com sucesso!
+        </p>
+      )}
+      <button type="submit" className="adminDetailSave" disabled={isPending}>
+        {isPending ? "Publicando…" : "Publicar achado"}
+      </button>
     </form>
   );
 }

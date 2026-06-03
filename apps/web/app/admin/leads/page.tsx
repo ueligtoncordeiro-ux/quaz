@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import { AdminLoginForm } from "../components/AdminLoginForm";
 import { isAdminAuthenticated, logoutAdmin } from "../actions";
@@ -185,8 +186,8 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
           <tbody>
             {leads.length ? (
               leads.map((lead) => (
-                <>
-                  <tr key={lead.id}>
+                <React.Fragment key={lead.id}>
+                  <tr>
                     <td>
                       <span className={`adminBadge ${lead.kind}`}>
                         {lead.kind === "partner" ? "Parceiro" : "Consumidor"}
@@ -212,7 +213,7 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
                     <td>
                       <form action={updateLeadStatus} className="adminInlineForm">
                         <input name="id" type="hidden" value={lead.id} />
-                        <select aria-label="Alterar status" name="status" defaultValue={lead.status}>
+                        <select key={lead.status} aria-label="Alterar status" name="status" defaultValue={lead.status}>
                           {Object.entries(statusLabels).map(([value, label]) => (
                             <option key={value} value={value}>
                               {label}
@@ -232,7 +233,7 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
                       )}
                     </td>
                   </tr>
-                  <tr key={`${lead.id}-details`} className="adminDetailRow">
+                  <tr className="adminDetailRow">
                     <td colSpan={6}>
                       <details>
                         <summary className="adminDetailToggle">
@@ -257,7 +258,7 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
                             {lead.email ? (
                               <label>
                                 <span>E-mail</span>
-                                <input type="email" value={lead.email} readOnly style={{background:"#f7f7f7", cursor:"default"}} />
+                                <input type="email" defaultValue={lead.email ?? ""} readOnly style={{background:"#f7f7f7", cursor:"default"}} />
                               </label>
                             ) : null}
                             <label className="adminDetailFull">
@@ -319,7 +320,7 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
                       )}
                     </td>
                   </tr>
-                </>
+                </React.Fragment>
               ))
             ) : (
               <tr>
