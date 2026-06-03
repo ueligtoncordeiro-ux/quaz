@@ -1306,6 +1306,173 @@ h2 {
   opacity: 0.88;
 }
 
+/* ── Achado detail — two-column layout ─────────────────────── */
+.achadoDetailSection {
+  display: block;
+}
+
+.achadoDetailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.achadoReserveCol {
+  position: sticky;
+  top: 24px;
+}
+
+/* ── Reserve form ───────────────────────────────────────────── */
+.reserveForm {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reserveTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--purple);
+}
+
+.reserveHint {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin: -8px 0 0;
+}
+
+.reserveLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.reserveLabel input {
+  padding: 10px 14px;
+  border: 1.5px solid rgba(36, 0, 61, 0.2);
+  border-radius: 10px;
+  font-size: 1rem;
+  background: var(--cream);
+  color: var(--purple);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.reserveLabel input:focus {
+  border-color: var(--orange);
+}
+
+.reserveLabel em {
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.reserveButton {
+  padding: 14px 20px;
+  background: var(--orange);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  margin-top: 4px;
+}
+
+.reserveButton:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.reserveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reserveError {
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+/* ── Reserve success ────────────────────────────────────────── */
+.reserveSuccess {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.reserveCode {
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  color: var(--purple);
+  background: var(--cream);
+  padding: 16px 28px;
+  border-radius: 14px;
+  font-family: ui-monospace, monospace;
+}
+
+.reserveSuccessTitle {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--purple);
+}
+
+.reserveSuccessInfo {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.reserveSuccessPickup {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--orange);
+  margin: 0;
+}
+
+.reserveSuccessHint {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(36, 0, 61, 0.08);
+  width: 100%;
+}
+
+.reserveSoldOut {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
 @media (max-width: 640px) {
   .adminDetailGrid {
     grid-template-columns: 1fr;
@@ -1415,6 +1582,14 @@ h2 {
 
   .adminTop {
     display: grid;
+  }
+
+  .achadoDetailGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .achadoReserveCol {
+    position: static;
   }
 }
 

@@ -1,6 +1,7 @@
 import { createSupabaseAdminClient } from "../../lib/supabase";
 import { SiteHeader } from "../../components/SiteHeader";
 import { notFound } from "next/navigation";
+import { ReserveForm } from "./ReserveForm";
 
 export const revalidate = 60;
 
@@ -36,7 +37,7 @@ async function getAchado(id: string): Promise<AchadoFull | null> {
     .eq("stores.status", "active")
     .maybeSingle();
 
-  return data as AchadoFull | null;
+  return data as unknown as AchadoFull | null;
 }
 
 function formatPrice(v: number) {
@@ -86,64 +87,62 @@ export default async function AchadoDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="section achadoDetail">
-        <div className="achadoDetailCard">
-          {/* Header */}
-          <div className="achadoDetailHeader">
-            <span className="achadoTag">Achado Quáz</span>
-            <span className="achadoDiscount">-{discount(achado.original_price, achado.sale_price)}%</span>
+      <section className="section achadoDetailSection">
+        <div className="achadoDetailGrid">
+          {/* Info card */}
+          <div className="achadoDetailCard">
+            <div className="achadoDetailHeader">
+              <span className="achadoTag">Achado Quáz</span>
+              <span className="achadoDiscount">-{discount(achado.original_price, achado.sale_price)}%</span>
+            </div>
+
+            <p className="achadoCategory">{achado.category}</p>
+
+            {achado.description && (
+              <p className="achadoDescription">{achado.description}</p>
+            )}
+
+            <div className="achadoPriceBlock">
+              <strong className="achadoDetailPrice">{formatPrice(achado.sale_price)}</strong>
+              <span className="achadoDetailOriginal">de {formatPrice(achado.original_price)}</span>
+            </div>
+
+            <div className="achadoPickupBlock">
+              <div className="achadoPickupRow">
+                <span className="achadoPickupLabel">📅 Retirada</span>
+                <span>{formatDatetime(achado.pickup_start)}</span>
+              </div>
+              <div className="achadoPickupRow">
+                <span className="achadoPickupLabel">⏰ Até</span>
+                <span>{formatTime(achado.pickup_end)}</span>
+              </div>
+              <div className="achadoPickupRow">
+                <span className="achadoPickupLabel">🛍️ Disponíveis</span>
+                <span><strong>{available}</strong> unidade{available !== 1 ? "s" : ""}</span>
+              </div>
+            </div>
+
+            <div className="achadoStoreBlock">
+              <strong>{achado.stores.name}</strong>
+              <span>{achado.stores.city}</span>
+              {achado.stores.address && <span>{achado.stores.address}</span>}
+              {achado.stores.hours && <span>⏱ {achado.stores.hours}</span>}
+            </div>
+
+            <a href="/achados" className="achadoBackLink">← Ver outros achados</a>
           </div>
 
-          {/* Category */}
-          <p className="achadoCategory">{achado.category}</p>
-
-          {/* Description */}
-          {achado.description && (
-            <p className="achadoDescription">{achado.description}</p>
-          )}
-
-          {/* Price block */}
-          <div className="achadoPriceBlock">
-            <strong className="achadoDetailPrice">{formatPrice(achado.sale_price)}</strong>
-            <span className="achadoDetailOriginal">de {formatPrice(achado.original_price)}</span>
+          {/* Reserve form */}
+          <div className="achadoReserveCol">
+            {available > 0 ? (
+              <ReserveForm achadoId={achado.id} />
+            ) : (
+              <div className="reserveSoldOut">
+                <p className="achadoSoldOut">😢 Este achado esgotou.</p>
+                <a href="/achados" className="achadoBackLink">← Ver outros achados</a>
+              </div>
+            )}
           </div>
-
-          {/* Pickup info */}
-          <div className="achadoPickupBlock">
-            <div className="achadoPickupRow">
-              <span className="achadoPickupLabel">📅 Retirada</span>
-              <span>{formatDatetime(achado.pickup_start)}</span>
-            </div>
-            <div className="achadoPickupRow">
-              <span className="achadoPickupLabel">⏰ Até</span>
-              <span>{formatTime(achado.pickup_end)}</span>
-            </div>
-            <div className="achadoPickupRow">
-              <span className="achadoPickupLabel">🛍️ Disponíveis</span>
-              <span><strong>{available}</strong> unidade{available !== 1 ? "s" : ""}</span>
-            </div>
-          </div>
-
-          {/* Store info */}
-          <div className="achadoStoreBlock">
-            <strong>{achado.stores.name}</strong>
-            <span>{achado.stores.city}</span>
-            {achado.stores.address && <span>{achado.stores.address}</span>}
-            {achado.stores.hours && <span>⏱ {achado.stores.hours}</span>}
-          </div>
-
-          {/* Reserve CTA (Sprint 4) */}
-          {available > 0 ? (
-            <div className="achadoReserveCta">
-              <p className="achadoReserveHint">Em breve você poderá reservar direto por aqui. Por enquanto, vá até a loja no horário combinado!</p>
-              <a href="/achados" className="achadoBackLink">← Ver outros achados</a>
-            </div>
-          ) : (
-            <div className="achadoReserveCta">
-              <p className="achadoSoldOut">😢 Este achado já foi embora. Mas tem outros esperando por você!</p>
-              <a href="/achados" className="achadoBackLink">← Ver outros achados</a>
-            </div>
-          )}
         </div>
       </section>
     </main>

@@ -46,6 +46,7 @@ export default async function AdminStoresPage() {
           <p className="lead">Gerencie os estabelecimentos parceiros ativos na plataforma.</p>
         </div>
         <nav className="adminNav">
+          <a href="/admin/reservations" className="adminGhostButton">Reservas</a>
           <a href="/admin/leads" className="adminGhostButton">← Leads</a>
         </nav>
       </section>
@@ -98,15 +99,20 @@ export default async function AdminStoresPage() {
                     </span>
                   </td>
                   <td>
-                    <form action={updateStoreStatus} className="adminInlineForm">
-                      <input type="hidden" name="id" value={store.id} />
-                      <select name="status" defaultValue={store.status} aria-label="Alterar status">
-                        {Object.entries(statusLabels).map(([v, l]) => (
-                          <option key={v} value={v}>{l}</option>
-                        ))}
-                      </select>
-                      <button type="submit">Salvar</button>
-                    </form>
+                    <div className="adminInlineForm">
+                      <a href={`/admin/stores/${store.id}`} className="adminDetailSave" style={{textDecoration:"none", fontSize:"0.8rem"}}>
+                        Achados
+                      </a>
+                      <form action={updateStoreStatus} className="adminInlineForm">
+                        <input type="hidden" name="id" value={store.id} />
+                        <select name="status" defaultValue={store.status} aria-label="Alterar status">
+                          {Object.entries(statusLabels).map(([v, l]) => (
+                            <option key={v} value={v}>{l}</option>
+                          ))}
+                        </select>
+                        <button type="submit">Salvar</button>
+                      </form>
+                    </div>
                   </td>
                 </tr>
               ))
