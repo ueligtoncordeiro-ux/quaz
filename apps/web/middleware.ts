@@ -29,6 +29,17 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // Catch Supabase auth errors landing on homepage and redirect to login with message
+  if (pathname === "/" && searchParams.has("error")) {
+    const errorCode = searchParams.get("error_code") ?? "unknown";
+    const url = request.nextUrl.clone();
+    url.pathname = "/parceiros/entrar";
+    url.search = "";
+    const msg = errorCode === "otp_expired" ? "link-expirado" : "link-invalido";
+    url.searchParams.set("erro", msg);
+    return NextResponse.redirect(url);
+  }
+
   // Auth guard for partner panel
   if (pathname.startsWith("/parceiros/painel") || pathname === "/parceiros/entrar") {
     let supabaseResponse = NextResponse.next({ request });
