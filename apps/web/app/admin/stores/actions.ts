@@ -46,12 +46,21 @@ export async function promoteLeadToStore(formData: FormData): Promise<void> {
 
   const slug = await uniqueSlug(supabase, name);
 
-  // Try to auto-link user_id if a matching auth user exists
+  // Invite partner: creates auth user + sends welcome email, or find existing user
   let userId: string | null = null;
   if (email) {
-    const { data: listData } = await supabase.auth.admin.listUsers();
-    const match = listData?.users.find((u) => u.email?.toLowerCase() === email.toLowerCase());
-    if (match) userId = match.id;
+    const { data: inviteData, error: inviteError } = await supabase.auth.admin.inviteUserByEmail(
+      email,
+      { redirectTo: "https://quazdigraca.com.br/parceiros/auth/callback" }
+    );
+    if (!inviteError && inviteData?.user) {
+      userId = inviteData.user.id;
+    } else {
+      // User already exists — just link them (they already have access)
+      const { data: listData } = await supabase.auth.admin.listUsers();
+      const match = listData?.users.find((u) => u.email?.toLowerCase() === email.toLowerCase());
+      if (match) userId = match.id;
+    }
   }
 
   const { error } = await supabase.from("stores").insert({
