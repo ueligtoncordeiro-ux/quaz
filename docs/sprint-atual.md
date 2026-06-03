@@ -5,30 +5,24 @@
 
 ---
 
-## Sprint 2 — Stores (em planejamento)
+## Sprint 2 — Stores ✅
 
 **Objetivo:** transformar lead aprovado em loja ativa no sistema.
-**Status:** ⬜ não iniciada
-**Responsável:** —
+**Status:** ✅ concluída
 
 ### Tarefas
 
-- [ ] Migration `stores` — id, slug, name, type, city, address, phone, email, hours, status, lead_id, created_at, updated_at
-- [ ] Admin: botão "Promover a loja" no lead com status `approved`
-- [ ] Admin: `/admin/stores` — lista lojas, ativar/desativar
-- [ ] Público: `/parceiros/[slug]` — página da loja
-
-### Decisões desta sprint
-- `stores.status`: `pending | active | inactive`
-- `stores.slug`: gerado a partir do `business_name` (slugify)
-- `stores.lead_id`: FK para `lead_submissions.id` (nullable — loja pode existir sem lead)
+- [x] Migration `stores` — `202606020002_create_stores.sql`
+- [x] Admin: botão "Promover a loja" em leads `partner` + `approved`
+- [x] Admin: `/admin/stores` — lista lojas, altera status
+- [ ] Público: `/parceiros/[slug]` — página da loja ← deixado para após Sprint 3
 
 ---
 
-## Sprint 3 — Achados (planejada)
+## Sprint 3 — Achados (em andamento)
 
 **Objetivo:** criar primeiro Achado Quáz manualmente via admin.
-**Status:** ⬜ aguarda Sprint 2
+**Status:** 🔶 iniciada
 
 ### Tarefas
 - [ ] Migration `achados`
