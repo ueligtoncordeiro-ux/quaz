@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { isAdminAuthenticated } from "../actions";
 import { updateReservationStatus } from "./actions";
 import { createSupabaseAdminClient } from "../../lib/supabase";
@@ -81,7 +82,7 @@ export default async function AdminReservationsPage({ searchParams }: PageProps)
           <p className="lead">Gerencie as reservas de achados recebidas.</p>
         </div>
         <nav className="adminNav">
-          <a href="/admin/stores" className="adminGhostButton">← Lojas</a>
+          <Link href="/admin/stores" className="adminGhostButton">← Lojas</Link>
         </nav>
       </section>
 
@@ -93,27 +94,27 @@ export default async function AdminReservationsPage({ searchParams }: PageProps)
 
       {/* Filtros */}
       <section className="achadosFilters">
-        <a className={`adminFilterChip${!loja && !status ? " active" : ""}`} href="/admin/reservations">
+        <Link className={`adminFilterChip${!loja && !status ? " active" : ""}`} href="/admin/reservations">
           Todas
-        </a>
+        </Link>
         {stores.map((s) => (
-          <a
+          <Link
             key={s.id}
             className={`adminFilterChip${loja === s.id ? " active" : ""}`}
             href={`/admin/reservations?loja=${s.id}${status ? `&status=${status}` : ""}`}
           >
             {s.name}
-          </a>
+          </Link>
         ))}
         <span style={{ borderLeft: "1px solid rgba(36,0,61,0.15)", margin: "0 4px" }} />
         {Object.entries(statusLabels).map(([v, l]) => (
-          <a
+          <Link
             key={v}
             className={`adminFilterChip${status === v ? " active" : ""}`}
             href={`/admin/reservations?status=${v}${loja ? `&loja=${loja}` : ""}`}
           >
             {l}
-          </a>
+          </Link>
         ))}
       </section>
 

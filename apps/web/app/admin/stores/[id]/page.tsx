@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { isAdminAuthenticated } from "../../actions";
 import { createAchado, updateAchadoStatus } from "./actions";
 import { createSupabaseAdminClient } from "../../../lib/supabase";
@@ -77,7 +78,7 @@ export default async function StoreAchadosPage({ params }: PageProps) {
           <p className="lead">{store.city} · {store.type || "Estabelecimento"}</p>
         </div>
         <nav className="adminNav">
-          <a href="/admin/stores" className="adminGhostButton">← Lojas</a>
+          <Link href="/admin/stores" className="adminGhostButton">← Lojas</Link>
         </nav>
       </section>
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { isAdminAuthenticated } from "../actions";
 import { updateStoreStatus } from "./actions";
 import { createSupabaseAdminClient } from "../../lib/supabase";
@@ -46,8 +47,8 @@ export default async function AdminStoresPage() {
           <p className="lead">Gerencie os estabelecimentos parceiros ativos na plataforma.</p>
         </div>
         <nav className="adminNav">
-          <a href="/admin/reservations" className="adminGhostButton">Reservas</a>
-          <a href="/admin/leads" className="adminGhostButton">← Leads</a>
+          <Link href="/admin/reservations" className="adminGhostButton">Reservas</Link>
+          <Link href="/admin/leads" className="adminGhostButton">← Leads</Link>
         </nav>
       </section>
 
@@ -118,7 +119,7 @@ export default async function AdminStoresPage() {
               ))
             ) : (
               <tr>
-                <td colSpan={6}>Nenhuma loja cadastrada ainda. Promova um lead aprovado em <a href="/admin/leads">Leads</a>.</td>
+                <td colSpan={6}>Nenhuma loja cadastrada ainda. Promova um lead aprovado em <Link href="/admin/leads">Leads</Link>.</td>
               </tr>
             )}
           </tbody>

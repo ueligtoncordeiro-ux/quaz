@@ -1,6 +1,7 @@
 import { createSupabaseAdminClient } from "../../lib/supabase";
 import { SiteHeader } from "../../components/SiteHeader";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { ReserveForm } from "./ReserveForm";
 
 export const revalidate = 60;
@@ -129,7 +130,7 @@ export default async function AchadoDetailPage({ params }: PageProps) {
               {achado.stores.hours && <span>⏱ {achado.stores.hours}</span>}
             </div>
 
-            <a href="/achados" className="achadoBackLink">← Ver outros achados</a>
+            <Link href="/achados" className="achadoBackLink">← Ver outros achados</Link>
           </div>
 
           {/* Reserve form */}
@@ -139,7 +140,7 @@ export default async function AchadoDetailPage({ params }: PageProps) {
             ) : (
               <div className="reserveSoldOut">
                 <p className="achadoSoldOut">😢 Este achado esgotou.</p>
-                <a href="/achados" className="achadoBackLink">← Ver outros achados</a>
+                <Link href="/achados" className="achadoBackLink">← Ver outros achados</Link>
               </div>
             )}
           </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createSupabaseAdminClient } from "../lib/supabase";
 import { SiteHeader } from "../components/SiteHeader";
 
@@ -89,17 +90,17 @@ export default async function AchadosPage({ searchParams }: PageProps) {
 
       {cities.length > 0 && (
         <section className="achadosFilters">
-          <a className={`adminFilterChip${!cidade ? " active" : ""}`} href="/achados">
+          <Link className={`adminFilterChip${!cidade ? " active" : ""}`} href="/achados">
             Todas as cidades
-          </a>
+          </Link>
           {cities.map((c) => (
-            <a
+            <Link
               key={c}
               className={`adminFilterChip${cidade === c ? " active" : ""}`}
               href={`/achados?cidade=${encodeURIComponent(c)}`}
             >
               {c}
-            </a>
+            </Link>
           ))}
         </section>
       )}
@@ -115,7 +116,7 @@ export default async function AchadosPage({ searchParams }: PageProps) {
             {achados.map((a) => {
               const available = a.quantity - a.quantity_reserved;
               return (
-                <a key={a.id} href={`/achados/${a.id}`} className="achadoCard">
+                <Link key={a.id} href={`/achados/${a.id}`} className="achadoCard">
                   <div className="achadoCardHeader">
                     <span className="achadoTag">Achado Quáz</span>
                     <span className="achadoDiscount">-{discount(a.original_price, a.sale_price)}%</span>
@@ -133,7 +134,7 @@ export default async function AchadosPage({ searchParams }: PageProps) {
                       <span>{available} disponível{available !== 1 ? "is" : ""}</span>
                     </div>
                   </div>
-                </a>
+                </Link>
               );
             })}
           </div>

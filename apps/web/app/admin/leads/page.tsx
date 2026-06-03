@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AdminLoginForm } from "../components/AdminLoginForm";
 import { isAdminAuthenticated, logoutAdmin } from "../actions";
 import { updateLeadStatus, updateLeadDetails } from "./actions";
@@ -113,7 +114,7 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
           </p>
         </div>
         <nav className="adminNav">
-          <a href="/admin/stores" className="adminGhostButton">🏪 Lojas</a>
+          <Link href="/admin/stores" className="adminGhostButton">🏪 Lojas</Link>
           <form action={logoutAdmin}>
             <button className="adminGhostButton" type="submit">Sair</button>
           </form>
