@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { isAdminAuthenticated } from "../../actions";
-import { createAchado, updateAchadoStatus } from "./actions";
+import { createAchado, updateAchadoStatus, linkPartnerUser } from "./actions";
 import { createSupabaseAdminClient } from "../../../lib/supabase";
 import { redirect, notFound } from "next/navigation";
 
@@ -34,7 +34,7 @@ function discount(original: number, sale: number) {
 async function getStore(id: string) {
   const supabase = createSupabaseAdminClient();
   if (!supabase) return null;
-  const { data } = await supabase.from("stores").select("*").eq("id", id).maybeSingle();
+  const { data } = await supabase.from("stores").select("*, user_id").eq("id", id).maybeSingle();
   return data;
 }
 
@@ -89,6 +89,32 @@ export default async function StoreAchadosPage({ params }: PageProps) {
           <strong>{achados.reduce((s, a) => s + (a.quantity - a.quantity_reserved), 0)}</strong>
           <span>Disponíveis</span>
         </article>
+      </section>
+
+      {/* Vincular parceiro */}
+      <section className="adminCard">
+        <h2 className="adminCardTitle">Acesso do parceiro</h2>
+        {store.user_id ? (
+          <p style={{ margin: 0 }}>
+            ✅ Parceiro vinculado — <code style={{ fontSize: "0.8rem" }}>{store.user_id}</code>
+          </p>
+        ) : (
+          <p style={{ margin: "0 0 0.75rem", color: "var(--muted, #888)", fontSize: "0.875rem" }}>
+            Nenhum parceiro vinculado. Informe o e-mail com que o parceiro fez login via magic link.
+          </p>
+        )}
+        <form action={linkPartnerUser} className="adminInlineForm" style={{ marginTop: "0.75rem" }}>
+          <input type="hidden" name="store_id" value={id} />
+          <input
+            name="email"
+            type="email"
+            required
+            placeholder={store.email ?? "e-mail do parceiro"}
+            defaultValue={store.email ?? ""}
+            style={{ flex: 1 }}
+          />
+          <button type="submit">{store.user_id ? "Atualizar vínculo" : "Vincular"}</button>
+        </form>
       </section>
 
       {/* Criar novo achado */}

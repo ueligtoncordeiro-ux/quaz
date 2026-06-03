@@ -4,6 +4,37 @@ import { revalidatePath } from "next/cache";
 import { createSupabaseAdminClient } from "../../../lib/supabase";
 import { isAdminAuthenticated } from "../../actions";
 
+export async function linkPartnerUser(formData: FormData): Promise<{ error?: string }> {
+  const authenticated = await isAdminAuthenticated();
+  if (!authenticated) return { error: "Não autorizado" };
+
+  const store_id = String(formData.get("store_id") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+
+  if (!store_id || !email) return { error: "Dados inválidos" };
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return { error: "Erro de configuração" };
+
+  // Look up the user by email in auth.users (admin API)
+  const { data: listData, error: listError } = await supabase.auth.admin.listUsers();
+  if (listError) return { error: "Erro ao buscar usuários" };
+
+  const user = listData.users.find((u) => u.email?.toLowerCase() === email);
+  if (!user) return { error: `Nenhum usuário encontrado com o e-mail ${email}. O parceiro precisa ter feito login ao menos uma vez.` };
+
+  const { error: updateError } = await supabase
+    .from("stores")
+    .update({ user_id: user.id })
+    .eq("id", store_id);
+
+  if (updateError) return { error: "Erro ao vincular: " + updateError.message };
+
+  revalidatePath(`/admin/stores/${store_id}`);
+  revalidatePath("/admin/stores");
+  return {};
+}
+
 export async function createAchado(formData: FormData): Promise<void> {
   const authenticated = await isAdminAuthenticated();
   if (!authenticated) return;
