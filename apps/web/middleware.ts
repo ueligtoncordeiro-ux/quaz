@@ -20,7 +20,14 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
-  const { pathname } = request.nextUrl;
+  const { pathname, searchParams } = request.nextUrl;
+
+  // Catch Supabase magic link code landing on homepage and redirect to callback
+  if (pathname === "/" && searchParams.has("code")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/parceiros/auth/callback";
+    return NextResponse.redirect(url);
+  }
 
   // Auth guard for partner panel
   if (pathname.startsWith("/parceiros/painel") || pathname === "/parceiros/entrar") {
