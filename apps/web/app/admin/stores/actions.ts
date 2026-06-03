@@ -83,15 +83,14 @@ export async function promoteLeadToStore(formData: FormData): Promise<void> {
   if (!supabase) return;
 
   // Prevent duplicate: check if this lead was already promoted
-  const { data: existing } = await supabase
+  const { data: existingRows } = await supabase
     .from("stores")
-    .select("id, name")
+    .select("id")
     .eq("lead_id", leadId)
-    .maybeSingle();
+    .limit(1);
 
-  if (existing) {
-    // Already promoted — redirect to the existing store
-    redirect(`/admin/stores`);
+  if (existingRows && existingRows.length > 0) {
+    redirect("/admin/stores");
   }
 
   const slug = await uniqueSlug(supabase, name);
@@ -139,6 +138,20 @@ export async function linkPartnerUser(formData: FormData): Promise<void> {
 
   await supabase.from("stores").update({ user_id: userId }).eq("id", store_id);
 
+  revalidatePath("/admin/stores");
+}
+
+export async function deleteStore(formData: FormData): Promise<void> {
+  const authenticated = await isAdminAuthenticated();
+  if (!authenticated) return;
+
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return;
+
+  await supabase.from("stores").delete().eq("id", id);
   revalidatePath("/admin/stores");
 }
 
