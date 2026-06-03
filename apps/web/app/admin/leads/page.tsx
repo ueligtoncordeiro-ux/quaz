@@ -99,6 +99,7 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
   }
 
   const { kind, status } = await searchParams;
+  const currentUrl = `/admin/leads${kind || status ? `?${kind ? `kind=${kind}` : ""}${kind && status ? "&" : ""}${status ? `status=${status}` : ""}` : ""}`;
   const { leads, error } = await getLeads(kind, status);
   const totalConsumers = leads.filter((lead) => lead.kind === "consumer").length;
   const totalPartners = leads.filter((lead) => lead.kind === "partner").length;
@@ -213,6 +214,7 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
                     <td>
                       <form action={updateLeadStatus} className="adminInlineForm">
                         <input name="id" type="hidden" value={lead.id} />
+                        <input name="redirect_to" type="hidden" value={currentUrl} />
                         <select key={lead.status} aria-label="Alterar status" name="status" defaultValue={lead.status}>
                           {Object.entries(statusLabels).map(([value, label]) => (
                             <option key={value} value={value}>

@@ -26,6 +26,24 @@ async function uniqueSlug(supabase: NonNullable<ReturnType<typeof createSupabase
   }
 }
 
+/** Invite or find a partner user by email. Returns userId or null. */
+async function inviteOrFindUser(
+  supabase: NonNullable<ReturnType<typeof createSupabaseAdminClient>>,
+  email: string
+): Promise<string | null> {
+  // Try to invite (creates user + sends welcome email)
+  const { data: inviteData, error: inviteError } = await supabase.auth.admin.inviteUserByEmail(
+    email,
+    { redirectTo: "https://quazdigraca.com.br/parceiros/auth/callback" }
+  );
+  if (!inviteError && inviteData?.user) return inviteData.user.id;
+
+  // User already exists — find and return their id
+  const { data: listData } = await supabase.auth.admin.listUsers();
+  const match = listData?.users.find((u) => u.email?.toLowerCase() === email.toLowerCase());
+  return match?.id ?? null;
+}
+
 export async function promoteLeadToStore(formData: FormData): Promise<void> {
   const authenticated = await isAdminAuthenticated();
   if (!authenticated) return;
@@ -46,22 +64,7 @@ export async function promoteLeadToStore(formData: FormData): Promise<void> {
 
   const slug = await uniqueSlug(supabase, name);
 
-  // Invite partner: creates auth user + sends welcome email, or find existing user
-  let userId: string | null = null;
-  if (email) {
-    const { data: inviteData, error: inviteError } = await supabase.auth.admin.inviteUserByEmail(
-      email,
-      { redirectTo: "https://quazdigraca.com.br/parceiros/auth/callback" }
-    );
-    if (!inviteError && inviteData?.user) {
-      userId = inviteData.user.id;
-    } else {
-      // User already exists — just link them (they already have access)
-      const { data: listData } = await supabase.auth.admin.listUsers();
-      const match = listData?.users.find((u) => u.email?.toLowerCase() === email.toLowerCase());
-      if (match) userId = match.id;
-    }
-  }
+  const userId = email ? await inviteOrFindUser(supabase, email) : null;
 
   const { error } = await supabase.from("stores").insert({
     lead_id: leadId,
@@ -98,15 +101,14 @@ export async function linkPartnerUser(formData: FormData): Promise<void> {
   const supabase = createSupabaseAdminClient();
   if (!supabase) return;
 
-  const { data: listData, error: listError } = await supabase.auth.admin.listUsers();
-  if (listError) return;
+  // Invite if new, or find existing user — either way get the id
+  const userId = await inviteOrFindUser(supabase, email);
+  if (!userId) return;
 
-  const user = listData.users.find((u) => u.email?.toLowerCase() === email);
-  if (!user) return;
-
-  await supabase.from("stores").update({ user_id: user.id }).eq("id", store_id);
+  await supabase.from("stores").update({ user_id: userId }).eq("id", store_id);
 
   revalidatePath("/admin/stores");
+  redirect("/admin/stores");
 }
 
 export async function updateStoreStatus(formData: FormData) {
@@ -123,4 +125,5 @@ export async function updateStoreStatus(formData: FormData) {
 
   await supabase.from("stores").update({ status }).eq("id", id);
   revalidatePath("/admin/stores");
+  redirect("/admin/stores");
 }

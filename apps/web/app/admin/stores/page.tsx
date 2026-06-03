@@ -117,7 +117,7 @@ export default async function AdminStoresPage() {
                       </Link>
                       <form action={updateStoreStatus} className="adminInlineForm">
                         <input type="hidden" name="id" value={store.id} />
-                        <select name="status" defaultValue={store.status} aria-label="Alterar status">
+                        <select key={store.status} name="status" defaultValue={store.status} aria-label="Alterar status">
                           {Object.entries(statusLabels).map(([v, l]) => (
                             <option key={v} value={v}>{l}</option>
                           ))}
