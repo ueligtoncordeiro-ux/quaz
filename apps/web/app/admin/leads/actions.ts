@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { createSupabaseAdminClient } from "../../lib/supabase";
 import { isAdminAuthenticated } from "../actions";
 
@@ -13,7 +12,6 @@ export async function updateLeadStatus(formData: FormData) {
 
   const id = String(formData.get("id") ?? "");
   const status = String(formData.get("status") ?? "");
-  const redirectTo = String(formData.get("redirect_to") ?? "/admin/leads");
 
   if (!id || !allowedStatuses.has(status)) return;
 
@@ -22,7 +20,6 @@ export async function updateLeadStatus(formData: FormData) {
 
   await supabase.from("lead_submissions").update({ status }).eq("id", id);
   revalidatePath("/admin/leads");
-  redirect(redirectTo);
 }
 
 export async function updateLeadDetails(formData: FormData) {

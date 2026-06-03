@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { AdminLoginForm } from "../components/AdminLoginForm";
 import { isAdminAuthenticated, logoutAdmin } from "../actions";
-import { updateLeadStatus, updateLeadDetails } from "./actions";
+import { updateLeadDetails } from "./actions";
+import { LeadStatusForm } from "./LeadStatusForm";
 import { promoteLeadToStore } from "../stores/actions";
 import { createSupabaseAdminClient } from "../../lib/supabase";
 
@@ -99,7 +100,6 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
   }
 
   const { kind, status } = await searchParams;
-  const currentUrl = `/admin/leads${kind || status ? `?${kind ? `kind=${kind}` : ""}${kind && status ? "&" : ""}${status ? `status=${status}` : ""}` : ""}`;
   const { leads, error } = await getLeads(kind, status);
   const totalConsumers = leads.filter((lead) => lead.kind === "consumer").length;
   const totalPartners = leads.filter((lead) => lead.kind === "partner").length;
@@ -212,18 +212,7 @@ export default async function AdminLeadsPage({ searchParams }: PageProps) {
                     <td>{lead.source}</td>
                     <td>{formatDate(lead.created_at)}</td>
                     <td>
-                      <form action={updateLeadStatus} className="adminInlineForm">
-                        <input name="id" type="hidden" value={lead.id} />
-                        <input name="redirect_to" type="hidden" value={currentUrl} />
-                        <select key={lead.status} aria-label="Alterar status" name="status" defaultValue={lead.status}>
-                          {Object.entries(statusLabels).map(([value, label]) => (
-                            <option key={value} value={value}>
-                              {label}
-                            </option>
-                          ))}
-                        </select>
-                        <button type="submit">Salvar</button>
-                      </form>
+                      <LeadStatusForm leadId={lead.id} currentStatus={lead.status} />
                       {lead.kind === "partner" && (
                         <Link
                           href={`/admin/leads/${lead.id}/promover`}

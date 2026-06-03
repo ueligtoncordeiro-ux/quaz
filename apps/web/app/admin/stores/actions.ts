@@ -108,7 +108,6 @@ export async function linkPartnerUser(formData: FormData): Promise<void> {
   await supabase.from("stores").update({ user_id: userId }).eq("id", store_id);
 
   revalidatePath("/admin/stores");
-  redirect("/admin/stores");
 }
 
 export async function updateStoreStatus(formData: FormData) {
@@ -125,5 +124,4 @@ export async function updateStoreStatus(formData: FormData) {
 
   await supabase.from("stores").update({ status }).eq("id", id);
   revalidatePath("/admin/stores");
-  redirect("/admin/stores");
 }
