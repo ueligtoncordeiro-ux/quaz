@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createSupabaseAdminClient } from "../../lib/supabase";
 import { isAdminAuthenticated } from "../actions";
 
@@ -64,6 +65,7 @@ export async function promoteLeadToStore(formData: FormData): Promise<void> {
 
   revalidatePath("/admin/leads");
   revalidatePath("/admin/stores");
+  redirect("/admin/stores");
 }
 
 export async function linkPartnerUser(formData: FormData): Promise<void> {
