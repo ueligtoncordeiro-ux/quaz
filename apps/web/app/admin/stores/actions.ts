@@ -66,6 +66,35 @@ export async function promoteLeadToStore(formData: FormData): Promise<void> {
   revalidatePath("/admin/stores");
 }
 
+export async function linkPartnerUser(formData: FormData): Promise<{ error?: string }> {
+  const authenticated = await isAdminAuthenticated();
+  if (!authenticated) return { error: "Não autorizado" };
+
+  const store_id = String(formData.get("store_id") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+
+  if (!store_id || !email) return { error: "Dados inválidos" };
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return { error: "Erro de configuração" };
+
+  const { data: listData, error: listError } = await supabase.auth.admin.listUsers();
+  if (listError) return { error: "Erro ao buscar usuários" };
+
+  const user = listData.users.find((u) => u.email?.toLowerCase() === email);
+  if (!user) return { error: `Usuário não encontrado: ${email}` };
+
+  const { error: updateError } = await supabase
+    .from("stores")
+    .update({ user_id: user.id })
+    .eq("id", store_id);
+
+  if (updateError) return { error: updateError.message };
+
+  revalidatePath("/admin/stores");
+  return {};
+}
+
 export async function updateStoreStatus(formData: FormData) {
   const authenticated = await isAdminAuthenticated();
   if (!authenticated) return;

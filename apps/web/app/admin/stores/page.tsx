@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { isAdminAuthenticated } from "../actions";
-import { updateStoreStatus } from "./actions";
+import { updateStoreStatus, linkPartnerUser } from "./actions";
 import { createSupabaseAdminClient } from "../../lib/supabase";
 import { redirect } from "next/navigation";
 
@@ -24,7 +24,7 @@ async function getStores() {
 
   const { data } = await supabase
     .from("stores")
-    .select("id, slug, name, type, city, phone, email, hours, status, created_at")
+    .select("id, slug, name, type, city, phone, email, hours, status, user_id, created_at")
     .order("created_at", { ascending: false });
 
   return data ?? [];
@@ -72,9 +72,8 @@ export default async function AdminStoresPage() {
           <thead>
             <tr>
               <th>Loja</th>
-              <th>Tipo</th>
               <th>Cidade</th>
-              <th>Contato</th>
+              <th>Parceiro (e-mail)</th>
               <th>Status</th>
               <th>Ação</th>
             </tr>
@@ -87,12 +86,24 @@ export default async function AdminStoresPage() {
                     <strong>{store.name}</strong>
                     <span className="adminMuted">/{store.slug}</span>
                   </td>
-                  <td>{store.type || "—"}</td>
                   <td>{store.city}</td>
                   <td>
-                    {store.phone ? <span>{store.phone}</span> : null}
-                    {store.email ? <span className="adminEmailTag">{store.email}</span> : null}
-                    {!store.phone && !store.email ? "—" : null}
+                    {store.user_id ? (
+                      <span className="adminBadge partner" title={store.user_id}>✅ vinculado</span>
+                    ) : (
+                      <form action={linkPartnerUser} className="adminInlineForm">
+                        <input type="hidden" name="store_id" value={store.id} />
+                        <input
+                          name="email"
+                          type="email"
+                          required
+                          placeholder={store.email ?? "e-mail do parceiro"}
+                          defaultValue={store.email ?? ""}
+                          style={{ width: "180px" }}
+                        />
+                        <button type="submit">Vincular</button>
+                      </form>
+                    )}
                   </td>
                   <td>
                     <span className={statusColors[store.status] ?? "adminBadge"}>
@@ -101,9 +112,9 @@ export default async function AdminStoresPage() {
                   </td>
                   <td>
                     <div className="adminInlineForm">
-                      <a href={`/admin/stores/${store.id}`} className="adminDetailSave" style={{textDecoration:"none", fontSize:"0.8rem"}}>
+                      <Link href={`/admin/stores/${store.id}`} className="adminDetailSave" style={{textDecoration:"none", fontSize:"0.8rem"}}>
                         Achados
-                      </a>
+                      </Link>
                       <form action={updateStoreStatus} className="adminInlineForm">
                         <input type="hidden" name="id" value={store.id} />
                         <select name="status" defaultValue={store.status} aria-label="Alterar status">
@@ -119,7 +130,7 @@ export default async function AdminStoresPage() {
               ))
             ) : (
               <tr>
-                <td colSpan={6}>Nenhuma loja cadastrada ainda. Promova um lead aprovado em <Link href="/admin/leads">Leads</Link>.</td>
+                <td colSpan={5}>Nenhuma loja cadastrada ainda. Promova um lead aprovado em <Link href="/admin/leads">Leads</Link>.</td>
               </tr>
             )}
           </tbody>
