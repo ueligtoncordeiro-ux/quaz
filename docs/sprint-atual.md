@@ -19,16 +19,16 @@
 
 ---
 
-## Sprint 3 — Achados (em andamento)
+## Sprint 3 — Achados ✅
 
 **Objetivo:** criar primeiro Achado Quáz manualmente via admin.
-**Status:** 🔶 iniciada
+**Status:** ✅ concluída
 
 ### Tarefas
-- [ ] Migration `achados`
-- [ ] Admin: `/admin/stores/[id]/achados` — criar/editar/desativar
-- [ ] Público: `/achados` — listagem por cidade
-- [ ] Público: `/achados/[id]` — página do achado
+- [x] Migration `achados` — `202606020003_create_achados.sql`
+- [x] Admin: `/admin/stores/[id]` — criar achado, alterar status
+- [x] Público: `/achados` — listagem por cidade (ISR 60s)
+- [x] Público: `/achados/[id]` — página do achado com CTA placeholder para Sprint 4
 
 ---
 
