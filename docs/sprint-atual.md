@@ -32,6 +32,36 @@
 
 ---
 
+## Sprint 5 — Painel do Parceiro ✅
+
+**Objetivo:** parceiro acessa painel via magic link, cria achados e confirma retiradas.
+**Status:** ✅ concluída (aguarda configuração de env vars no Vercel)
+
+### Tarefas
+- [x] Migration: `stores.user_id` + RLS policies para parceiro
+- [x] `/parceiros/entrar`: magic link (sem senha)
+- [x] `/parceiros/auth/callback`: troca code por sessão
+- [x] `/parceiros/painel`: dashboard com reservas + criação de achados
+- [x] Middleware: guarda rotas `/parceiros/painel`
+- [ ] Configurar `NEXT_PUBLIC_SUPABASE_ANON_KEY` no Vercel ← **ação manual**
+- [ ] Configurar redirect URL no Supabase Auth ← **ação manual**
+- [ ] Vincular `user_id` às lojas existentes via admin ← próximo passo
+
+---
+
+## Sprint 4 — Reserva ✅
+
+**Objetivo:** consumidor reserva sem auth e sem pagamento.
+**Status:** ✅ concluída
+
+### Tarefas
+- [x] Migration `reservations`
+- [x] Público: botão "Reservar" → nome + WhatsApp → código 6 chars
+- [x] Email: código enviado ao consumidor via Resend
+- [x] Admin: `/admin/reservations` — ver reservas, alterar status
+
+---
+
 ## Sprint 4 — Reserva (planejada)
 
 **Objetivo:** consumidor reserva sem auth e sem pagamento.
