@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { createClient } from "@supabase/supabase-js";
 import { createSupabaseAdminClient } from "../../lib/supabase";
 import { isAdminAuthenticated } from "../actions";
 
@@ -26,22 +27,39 @@ async function uniqueSlug(supabase: NonNullable<ReturnType<typeof createSupabase
   }
 }
 
-/** Invite or find a partner user by email. Returns userId or null. */
+/**
+ * Invite or find a partner user by email.
+ * - New user → inviteUserByEmail (creates account + sends welcome email)
+ * - Existing user → links them + sends a magic link so they can access the panel
+ */
 async function inviteOrFindUser(
   supabase: NonNullable<ReturnType<typeof createSupabaseAdminClient>>,
   email: string
 ): Promise<string | null> {
-  // Try to invite (creates user + sends welcome email)
+  // Try to invite (creates user + sends welcome email via "Invite user" template)
   const { data: inviteData, error: inviteError } = await supabase.auth.admin.inviteUserByEmail(
     email,
     { redirectTo: "https://quazdigraca.com.br/parceiros/auth/callback" }
   );
   if (!inviteError && inviteData?.user) return inviteData.user.id;
 
-  // User already exists — find and return their id
+  // User already exists — find their id
   const { data: listData } = await supabase.auth.admin.listUsers();
   const match = listData?.users.find((u) => u.email?.toLowerCase() === email.toLowerCase());
-  return match?.id ?? null;
+  if (!match) return null;
+
+  // Send them a magic link so they know their panel is ready
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (url && anonKey) {
+    const anonClient = createClient(url, anonKey, { auth: { persistSession: false } });
+    await anonClient.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: "https://quazdigraca.com.br/parceiros/auth/callback" },
+    });
+  }
+
+  return match.id;
 }
 
 export async function promoteLeadToStore(formData: FormData): Promise<void> {
@@ -56,14 +74,27 @@ export async function promoteLeadToStore(formData: FormData): Promise<void> {
   const email = String(formData.get("email") ?? "").trim() || null;
   const hours = String(formData.get("hours") ?? "").trim() || null;
   const address = String(formData.get("address") ?? "").trim() || null;
+  const document = String(formData.get("document") ?? "").trim() || null;
+  const store_kind = String(formData.get("store_kind") ?? "matriz").trim();
 
   if (!leadId || !name || !city) return;
 
   const supabase = createSupabaseAdminClient();
   if (!supabase) return;
 
-  const slug = await uniqueSlug(supabase, name);
+  // Prevent duplicate: check if this lead was already promoted
+  const { data: existing } = await supabase
+    .from("stores")
+    .select("id, name")
+    .eq("lead_id", leadId)
+    .maybeSingle();
 
+  if (existing) {
+    // Already promoted — redirect to the existing store
+    redirect(`/admin/stores`);
+  }
+
+  const slug = await uniqueSlug(supabase, name);
   const userId = email ? await inviteOrFindUser(supabase, email) : null;
 
   const { error } = await supabase.from("stores").insert({
@@ -76,6 +107,8 @@ export async function promoteLeadToStore(formData: FormData): Promise<void> {
     email,
     hours,
     address,
+    document,
+    store_kind,
     status: "active",
     user_id: userId,
   });
@@ -101,7 +134,6 @@ export async function linkPartnerUser(formData: FormData): Promise<void> {
   const supabase = createSupabaseAdminClient();
   if (!supabase) return;
 
-  // Invite if new, or find existing user — either way get the id
   const userId = await inviteOrFindUser(supabase, email);
   if (!userId) return;
 

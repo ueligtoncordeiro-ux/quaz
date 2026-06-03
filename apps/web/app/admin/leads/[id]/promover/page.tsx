@@ -19,6 +19,17 @@ async function getLead(id: string) {
   return data;
 }
 
+async function getExistingStore(leadId: string) {
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return null;
+  const { data } = await supabase
+    .from("stores")
+    .select("id, name, slug")
+    .eq("lead_id", leadId)
+    .maybeSingle();
+  return data;
+}
+
 function parseNote(notes: string | null, key: string) {
   if (!notes) return "";
   const match = notes.match(new RegExp(`${key}: ([^|]+)`));
@@ -33,6 +44,8 @@ export default async function PromoverLeadPage({ params }: PageProps) {
   const lead = await getLead(id);
   if (!lead || lead.kind !== "partner") notFound();
 
+  const existing = await getExistingStore(id);
+
   return (
     <main className="adminShell">
       <section className="adminTop">
@@ -46,42 +59,64 @@ export default async function PromoverLeadPage({ params }: PageProps) {
         </nav>
       </section>
 
-      <section className="adminCard">
-        <form action={promoteLeadToStore} className="adminDetailForm">
-          <input type="hidden" name="lead_id" value={lead.id} />
-          <div className="adminDetailGrid">
-            <label>
-              <span>Nome da loja *</span>
-              <input name="name" required defaultValue={lead.business_name ?? ""} />
-            </label>
-            <label>
-              <span>Tipo de negócio</span>
-              <input name="type" defaultValue={parseNote(lead.notes, "Tipo")} placeholder="Ex: Padaria" />
-            </label>
-            <label>
-              <span>Cidade *</span>
-              <input name="city" required defaultValue={lead.city ?? ""} />
-            </label>
-            <label>
-              <span>Telefone / WhatsApp</span>
-              <input name="phone" defaultValue={lead.phone ?? ""} />
-            </label>
-            <label>
-              <span>E-mail</span>
-              <input name="email" type="email" defaultValue={lead.email ?? ""} />
-            </label>
-            <label>
-              <span>Horário</span>
-              <input name="hours" defaultValue={parseNote(lead.notes, "Horário")} placeholder="Ex: Seg–Sex 7h–19h" />
-            </label>
-            <label className="adminDetailFull">
-              <span>Endereço</span>
-              <input name="address" placeholder="Rua, número, bairro" />
-            </label>
-          </div>
-          <button type="submit" className="adminDetailSave">✓ Criar loja ativa</button>
-        </form>
-      </section>
+      {existing ? (
+        <section className="adminCard">
+          <p style={{ color: "var(--ink-soft)", marginBottom: 12 }}>
+            ⚠️ Este lead já foi promovido para a loja <strong>{existing.name}</strong>.
+          </p>
+          <Link href="/admin/stores" className="adminDetailSave" style={{ textDecoration: "none", display: "inline-block" }}>
+            Ver em Lojas →
+          </Link>
+        </section>
+      ) : (
+        <section className="adminCard">
+          <form action={promoteLeadToStore} className="adminDetailForm">
+            <input type="hidden" name="lead_id" value={lead.id} />
+            <div className="adminDetailGrid">
+              <label>
+                <span>Nome da loja *</span>
+                <input name="name" required defaultValue={lead.business_name ?? ""} />
+              </label>
+              <label>
+                <span>Tipo de negócio</span>
+                <input name="type" defaultValue={parseNote(lead.notes, "Tipo")} placeholder="Ex: Padaria" />
+              </label>
+              <label>
+                <span>Cidade *</span>
+                <input name="city" required defaultValue={lead.city ?? ""} />
+              </label>
+              <label>
+                <span>CNPJ / CPF</span>
+                <input name="document" placeholder="00.000.000/0001-00" />
+              </label>
+              <label>
+                <span>Tipo de unidade</span>
+                <select name="store_kind" defaultValue="matriz">
+                  <option value="matriz">Matriz</option>
+                  <option value="filial">Filial</option>
+                </select>
+              </label>
+              <label>
+                <span>Telefone / WhatsApp</span>
+                <input name="phone" defaultValue={lead.phone ?? ""} />
+              </label>
+              <label>
+                <span>E-mail</span>
+                <input name="email" type="email" defaultValue={lead.email ?? ""} />
+              </label>
+              <label>
+                <span>Horário</span>
+                <input name="hours" defaultValue={parseNote(lead.notes, "Horário")} placeholder="Ex: Seg–Sex 7h–19h" />
+              </label>
+              <label className="adminDetailFull">
+                <span>Endereço</span>
+                <input name="address" placeholder="Rua, número, bairro" />
+              </label>
+            </div>
+            <button type="submit" className="adminDetailSave">✓ Criar loja ativa</button>
+          </form>
+        </section>
+      )}
     </main>
   );
 }
