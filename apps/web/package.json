@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@quaz/config": "0.1.0",
+    "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.106.2",
     "next": "^15.3.0",
     "react": "^19.0.0",
