@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { isAdminAuthenticated } from "../actions";
-import { updateStoreStatus, linkPartnerUser, deleteStore } from "./actions";
+import { updateStoreStatus, linkPartnerUser } from "./actions";
+import { DeleteStoreButton } from "./DeleteStoreButton";
 import { createSupabaseAdminClient } from "../../lib/supabase";
 import { redirect } from "next/navigation";
 
@@ -124,12 +125,7 @@ export default async function AdminStoresPage() {
                         </select>
                         <button type="submit">Salvar</button>
                       </form>
-                      <form action={deleteStore} onSubmit={(e) => { if (!confirm(`Excluir "${store.name}"? Isso não pode ser desfeito.`)) e.preventDefault(); }}>
-                        <input type="hidden" name="id" value={store.id} />
-                        <button type="submit" style={{ background: "#dc2626", color: "#fff", border: "none", borderRadius: 8, padding: "6px 12px", cursor: "pointer", fontSize: "0.8rem" }}>
-                          Excluir
-                        </button>
-                      </form>
+                      <DeleteStoreButton storeId={store.id} storeName={store.name} />
                     </div>
                   </td>
                 </tr>
