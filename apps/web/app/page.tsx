@@ -2,6 +2,7 @@ import { brandColors } from "@quaz/config";
 import { LeadForm } from "./components/LeadForm";
 import { PhoneMockup } from "./components/PhoneMockup";
 import { SiteHeader } from "./components/SiteHeader";
+import { AuthHashHandler } from "./components/AuthHashHandler";
 
 const steps = [
   {
@@ -27,6 +28,7 @@ const benefits = [
 export default function Home() {
   return (
     <main>
+      <AuthHashHandler />
       <section className="hero" aria-labelledby="hero-title">
         <SiteHeader />
 
