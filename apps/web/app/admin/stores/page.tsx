@@ -2,6 +2,7 @@ import Link from "next/link";
 import { isAdminAuthenticated } from "../actions";
 import { updateStoreStatus, linkPartnerUser } from "./actions";
 import { DeleteStoreButton } from "./DeleteStoreButton";
+import { ResendAccessButton } from "./ResendAccessButton";
 import { createSupabaseAdminClient } from "../../lib/supabase";
 import { redirect } from "next/navigation";
 
@@ -90,7 +91,10 @@ export default async function AdminStoresPage() {
                   <td>{store.city}</td>
                   <td>
                     {store.user_id ? (
-                      <span className="adminBadge partner" title={store.user_id}>✅ vinculado</span>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                        <span className="adminBadge partner">✅ vinculado</span>
+                        {store.email && <ResendAccessButton email={store.email} />}
+                      </div>
                     ) : (
                       <form action={linkPartnerUser} className="adminInlineForm">
                         <input type="hidden" name="store_id" value={store.id} />

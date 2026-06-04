@@ -141,6 +141,24 @@ export async function linkPartnerUser(formData: FormData): Promise<void> {
   revalidatePath("/admin/stores");
 }
 
+export async function resendPartnerAccess(formData: FormData): Promise<void> {
+  const authenticated = await isAdminAuthenticated();
+  if (!authenticated) return;
+
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  if (!email) return;
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !anonKey) return;
+
+  const anonClient = createClient(url, anonKey, { auth: { persistSession: false } });
+  await anonClient.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: "https://quazdigraca.com.br/parceiros/auth/callback" },
+  });
+}
+
 export async function deleteStore(formData: FormData): Promise<void> {
   const authenticated = await isAdminAuthenticated();
   if (!authenticated) return;
